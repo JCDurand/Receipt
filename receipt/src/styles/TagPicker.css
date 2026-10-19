@@ -1,0 +1,216 @@
+/* TagPicker.css - Modern, floating tag picker */
+
+.tag-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  position: relative; /* Anchors the absolute popup so it hovers perfectly */
+}
+
+.tag-picker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Rounded, polished pill shapes for the tags */
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 12px;
+  font-size: 0.8rem;
+  color: #334155;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 16px;
+  white-space: nowrap;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.tag-chip-remove {
+  padding: 2px 4px;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  line-height: 1;
+  color: #94a3b8;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.tag-chip-remove:hover:not(:disabled) {
+  color: #ef4444;
+  background: #fee2e2;
+}
+
+.tag-add-btn {
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #64748b;
+  background: transparent;
+  border: 1px dashed #cbd5e1;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-add-btn:hover:not(:disabled) {
+  color: var(--gold-dark, #b08d57);
+  border-color: var(--gold-dark, #b08d57);
+  background: rgba(176, 141, 87, 0.05);
+}
+
+.tag-picker button:disabled,
+.tag-picker input:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+/* Sleek Floating Popup Menu */
+.tag-picker-add {
+  position: absolute;
+  top: calc(100% + 6px); /* Drops just below the add button */
+  left: 0;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 14px 32px -8px rgba(16, 24, 32, 0.28);
+  width: min(300px, calc(100vw - 40px));
+  box-sizing: border-box;
+  text-align: left;
+  color: #26313a;
+}
+
+.tag-picker-input {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  transition: all 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tag-picker-input:focus {
+  outline: none;
+  border-color: var(--gold, #b08d57);
+  box-shadow: 0 0 0 2px rgba(176, 141, 87, 0.15);
+}
+
+.tag-picker-choices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: min(220px, 35vh);
+  overflow-y: auto;
+  border-radius: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: #71808b #e7ebee;
+}
+
+/* Custom minimal scrollbar for the dropdown list */
+.tag-picker-choices::-webkit-scrollbar {
+  width: 10px;
+}
+
+.tag-picker-choices::-webkit-scrollbar-track {
+  background-color: #e7ebee;
+  border-radius: 6px;
+}
+
+.tag-picker-choices::-webkit-scrollbar-thumb {
+  background-color: #71808b;
+  border: 2px solid #e7ebee;
+  border-radius: 6px;
+}
+
+.tag-picker-choices button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  text-align: left;
+  color: #334155;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.tag-picker-choices button:hover:not(:disabled),
+.tag-picker-choices button:focus-visible {
+  background: #f8fafc;
+  outline: none;
+}
+
+.tag-own-label {
+  font-size: 0.7rem;
+  color: #64748b;
+  background: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.tag-create-choice {
+  color: var(--gold-dark, #b08d57) !important;
+  font-weight: 600;
+}
+
+.tag-picker-none {
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  text-align: center;
+  font-style: italic;
+}
+
+/* The Boxed Cancel Button */
+.tag-picker-cancel {
+  align-self: flex-end;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-picker-cancel:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.tag-picker-error {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #ef4444;
+  background: #fee2e2;
+  padding: 6px;
+  border-radius: 4px;
+  overflow-wrap: anywhere;
+}
+
+.tag-cell {
+  min-width: 220px;
+  white-space: normal !important;
+}

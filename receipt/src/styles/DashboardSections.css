@@ -1,0 +1,420 @@
+/* DashboardSections.css - spending and recent activity on the Dashboard */
+
+/* .container is exactly one screen tall and clips whatever does not fit, so the
+   Dashboard, which is taller, scrolls within it. Sideways is hidden, as the
+   background orbs poke out past the edge. */
+.container.dashboard-view {
+  align-items: flex-start;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.dashboard-view .dashboard-container {
+  flex: 1;
+  min-width: 0;
+  height: auto;
+}
+
+/* The uploaded documents table scrolls, both ways, under a fixed heading */
+.dashboard-view .modern-table-wrapper {
+  display: block;
+  max-height: 380px;
+}
+
+.dashboard-view .modern-table {
+  border: 1px solid var(--line-strong);
+  font-size: 0.8125rem;
+  background: var(--surface);
+}
+
+.dashboard-view .modern-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  height: auto;
+  padding: 10px 14px;
+  background: var(--head);
+  box-shadow: inset 0 -1px 0 var(--line-strong);
+  color: #4b5563;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.dashboard-view .modern-table td {
+  height: auto;
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  border-bottom: 0;
+  color: var(--ink);
+}
+
+.dashboard-view .modern-table tbody tr {
+  cursor: default;
+}
+
+.dashboard-view .modern-table tbody tr:hover {
+  background: #f8f9fb;
+}
+
+.dashboard-view .modern-table tbody tr:first-child td {
+  border-top: 0;
+}
+
+.dashboard-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+.dashboard-panel {
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.dashboard-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.dashboard-panel-title {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.dashboard-panel > .dashboard-panel-title {
+  border-bottom: 1px solid var(--line);
+}
+
+.dashboard-panel-empty {
+  margin: 0;
+  padding: 24px 16px;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* ---- Recent uploads and recent line items ---- */
+.activity-log {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 340px;
+}
+
+.activity-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-top: 1px solid #eef0f3;
+}
+
+.activity-row:first-child {
+  border-top: none;
+}
+
+.activity-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.activity-log a {
+  color: var(--navy);
+  text-decoration: none;
+}
+
+.activity-log a:hover {
+  text-decoration: underline;
+}
+
+.activity-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.activity-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.activity-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 2px;
+}
+
+.activity-amount {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.activity-amount.is-negative {
+  color: var(--neg);
+}
+
+.activity-badge {
+  flex-shrink: 0;
+  padding: 1px 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+}
+
+.activity-badge.category-statement {
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.activity-badge.category-receipt {
+  color: #a15c07;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.activity-badge.category-cash {
+  color: var(--pos);
+  background: rgba(28, 124, 77, 0.1);
+  border-color: rgba(28, 124, 77, 0.3);
+}
+
+/* ---- Spending ---- */
+.spending-clear {
+  margin-right: 16px;
+  padding: 0;
+  font-size: 0.75rem;
+  color: var(--navy);
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* The choices beside the figure they change; stacked when there is no room */
+.spending-body {
+  display: grid;
+  grid-template-columns: minmax(280px, 5fr) minmax(300px, 6fr);
+}
+
+.spending-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 16px;
+  border-right: 1px solid #eef0f3;
+}
+
+.spending-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.spending-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5b6672;
+}
+
+.spending-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.spending-pill {
+  padding: 3px 10px;
+  font-size: 0.78rem;
+  color: var(--navy);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.spending-pill:hover {
+  border-color: var(--navy);
+}
+
+.spending-pill.is-on {
+  color: #fff;
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.spending-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.spending-dates label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5b6672;
+}
+
+.spending-dates input {
+  padding: 6px 8px;
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.spending-warning {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--neg);
+}
+
+.spending-hint {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.spending-result {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.spending-total {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 16px;
+}
+
+.spending-total-amount {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #2c3e50;
+  font-variant-numeric: tabular-nums;
+}
+
+.spending-total-caption {
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.spending-total-detail {
+  font-size: 0.78rem;
+  color: #5b6672;
+}
+
+/* Many tags: the breakdown scrolls rather than lengthening the page */
+.spending-rows {
+  list-style: none;
+  margin: 0;
+  padding: 0 16px 8px;
+  max-height: 250px;
+}
+
+.spending-row {
+  display: grid;
+  grid-template-columns: minmax(90px, 160px) minmax(60px, 1fr) auto 60px;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 0.85rem;
+}
+
+.spending-row-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #2c3e50;
+}
+
+.spending-row.is-untagged .spending-row-name {
+  font-style: italic;
+  color: #5b6672;
+}
+
+.spending-row-bar {
+  height: 6px;
+  background: var(--line);
+}
+
+.spending-row-bar span {
+  display: block;
+  height: 100%;
+  background: var(--navy);
+}
+
+.spending-row.is-untagged .spending-row-bar span {
+  background: #9ca3af;
+}
+
+.spending-row-amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.spending-row-count {
+  font-size: 0.72rem;
+  color: #5b6672;
+  text-align: right;
+}
+
+.spending-note {
+  margin: 0;
+  padding: 10px 16px 14px;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  color: #6b7280;
+  border-top: 1px solid #eef0f3;
+}
+
+@media (max-width: 900px) {
+  .spending-body {
+    grid-template-columns: 1fr;
+  }
+
+  .spending-filters {
+    border-right: none;
+    border-bottom: 1px solid #eef0f3;
+  }
+}

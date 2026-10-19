@@ -1,0 +1,73 @@
+# Production overrides, layered on top of docker-compose.yml:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml ...
+# .env.prod.example sets COMPOSE_FILE so that a plain `docker compose` does this.
+# See DEPLOYMENT.md.
+
+# Docker keeps a container's output forever unless told otherwise
+x-logging: &logging
+   driver: json-file
+   options:
+      max-size: "10m"
+      max-file: "3"
+
+services:
+   # Only the frontend's Nginx is published. It reaches Django over the
+   # Compose network, and Django reaches Postgres the same way.
+   web:
+      ports: !reset []
+      # The code comes from the image, not from this folder. Uploaded documents
+      # go to a volume, so they outlive the container.
+      volumes: !override
+         - media:/app/document_storage
+      # Gunicorn gives requests 30 s to finish when it is asked to stop
+      stop_grace_period: 40s
+      # Django only answers for its own hostname, so the check asks as that host
+      healthcheck:
+         test: ["CMD", "python", "-c", "import os, urllib.request as u; u.urlopen(u.Request('http://127.0.0.1:8000/api/health/', headers={'Host': os.environ['DJANGO_ALLOWED_HOSTS'].split(',')[0].strip()}), timeout=5)"]
+         interval: 30s
+         timeout: 10s
+         retries: 3
+         start_period: 60s
+         start_interval: 3s
+      logging: *logging
+
+   db:
+      ports: !reset []
+      restart: unless-stopped
+      logging: *logging
+
+   # HTTPS for ${DOMAIN}, with the certificate that certbot keeps on the host.
+   # The browser can no longer call Django on port 8000, so the bundle uses
+   # the /api/ route that Nginx proxies.
+   frontend:
+      build:
+         args:
+            NGINX_CONF: prod
+            VITE_API_BASE_URL: /api
+      environment:
+         - DOMAIN=${DOMAIN:?DOMAIN is not set in .env}
+      ports: !override
+         - "80:80"
+         - "443:443"
+      volumes:
+         - ${LETSENCRYPT_DIR:-/etc/letsencrypt}:/etc/letsencrypt:ro
+      depends_on:
+         web:
+            condition: service_healthy
+      logging: *logging
+
+   # Not started unless asked for with `--profile admin`, and then only
+   # reachable from the server itself, i.e. through an SSH tunnel:
+   #   ssh -L 8978:127.0.0.1:8978 <user>@<server>
+   dbeaver:
+      profiles: ["admin"]
+      ports: !override
+         - "127.0.0.1:8978:8978"
+      # No fallback login here, unlike in development
+      environment:
+         - CB_ADMIN_NAME=${DBEAVER_USER:?DBEAVER_USER is not set}
+         - CB_ADMIN_PASSWORD=${DBEAVER_PASSWORD:?DBEAVER_PASSWORD is not set, run start_prod.sh}
+      logging: *logging
+
+volumes:
+ media:

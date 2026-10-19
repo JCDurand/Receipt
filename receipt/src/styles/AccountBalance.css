@@ -1,0 +1,127 @@
+/* An account's balance now, and the warning for a savings account below zero */
+
+.account-balance {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin-top: 6px;
+  text-align: left;
+}
+
+.account-balance strong {
+  font-size: 1.15rem;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.account-balance strong.is-neg {
+  color: var(--neg);
+}
+
+.account-balance-sub {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* in the list, the balance sits to the right of the account's name */
+.account-balance.is-compact {
+  align-items: flex-end;
+  margin-top: 0;
+  text-align: right;
+}
+
+.account-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.account-list-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.account-list-item.has-warning {
+  border-color: #efc2bd;
+  background: #fdf5f4;
+}
+
+.account-warning-badge {
+  margin-left: 8px;
+  padding: 1px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #8a241c;
+  background: #fbe3e0;
+  border-radius: 999px;
+  vertical-align: middle;
+}
+
+.account-warning {
+  margin: 8px 0 0;
+  padding: 10px 12px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #6b1d16;
+  text-align: left;
+  background: #fdf3f2;
+  border: 1px solid #efc2bd;
+  border-left: 4px solid #c2413a;
+  border-radius: 6px;
+}
+
+.account-warning > span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  color: #fff;
+  background: #c2413a;
+  border-radius: 50%;
+}
+
+.account-modal > .account-warning {
+  margin: 0 20px 4px;
+}
+
+/* ---- The dashboard's balance history ---- */
+.account-history-warning:empty {
+  display: none;
+}
+
+.account-history-warning .account-warning {
+  margin: 0 20px 10px;
+}
+
+.account-history-table {
+  max-height: 340px;
+  overflow: auto;
+}
+
+.account-history-table tr.is-before-opening td {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.account-history-table td.line-amount.is-credit { color: var(--pos); }
+.account-history-table td.line-amount.is-debit { color: var(--neg); }
+
+/* on the account dialog's dark header */
+.account-modal-header .account-balance strong {
+  color: #fff;
+}
+
+.account-modal-header .account-balance strong.is-neg {
+  color: #ffb4ab;
+}
+
+.account-modal-header .account-balance-sub {
+  color: rgba(255, 255, 255, 0.7);
+}

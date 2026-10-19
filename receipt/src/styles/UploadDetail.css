@@ -1,0 +1,271 @@
+/* A column as tall as the page: the back button and heading keep their size and
+   the cards below take what is left, so a long list of line items scrolls inside
+   its card instead of running past the bottom of the window (where .container,
+   which is one screen tall, would cut it off) */
+.upload-detail-page {
+  display: flex;
+  flex-direction: column;
+  width: 82vw;
+  height: 95vh;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.upload-detail-page > * {
+  flex-shrink: 0;
+}
+
+/* centred, as it was before the page became a column */
+.upload-detail-page > .upload-detail-back {
+  align-self: center;
+}
+
+.upload-detail-back {
+  background: none;
+  border: none;
+  color: #B08D57;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.upload-detail-back:hover {
+  text-decoration: underline;
+}
+
+.upload-detail-header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 14px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.upload-detail-name-input {
+  flex: 1;
+  min-width: 200px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  margin: -4px -8px;
+}
+
+.upload-detail-name-input:hover {
+  border-color: #2c3e501d;
+}
+
+.upload-detail-name-input:focus {
+  outline: none;
+  border-color: #B08D57;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 0 3px rgba(184, 141, 87, 0.1);
+}
+
+.upload-detail-page > .upload-detail-grid {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.upload-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: minmax(0, 1fr); /* the row is the height left, not what the cards hold */
+  gap: 20px;
+}
+
+.upload-detail-card {
+  min-height: 0;
+  overflow-y: auto; /* a short screen scrolls the metadata; the line items scroll themselves */
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Only the line items card is a column, so that its list can take the height left
+   (which would also stretch the metadata card's buttons across it) */
+.upload-detail-items-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-detail-card h2 {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  color: var(--navy);
+  margin: 0 0 14px 0;
+}
+
+.upload-detail-meta-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 16px;
+  margin: 0 0 16px 0;
+}
+
+.upload-detail-meta-list dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.upload-detail-meta-list dd {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #2c3e50;
+}
+
+.upload-detail-view-btn {
+  padding: 7px 16px;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.upload-detail-view-btn:hover {
+  background: var(--gold-dark);
+}
+
+/* Takes the height left in its card and scrolls (see .scroll-area in App.css) */
+.upload-detail-items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 6px 0 0;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upload-detail-item-row {
+  flex-shrink: 0; /* rows keep their height and the list scrolls, rather than squashing them */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.upload-detail-item-date {
+  font-size: 0.75rem;
+  color: #2c3e50a1;
+  white-space: nowrap;
+}
+
+.upload-detail-item-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.85rem;
+  color: #2c3e50;
+}
+
+.upload-detail-item-amount {
+  min-width: 70px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+/* money out is red and money in green, neither with a sign */
+.upload-detail-item-amount.is-debit {
+  color: var(--neg);
+}
+
+.upload-detail-item-amount.is-credit {
+  color: var(--pos);
+}
+
+.upload-detail-item-edit {
+  padding: 2px 10px;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--navy);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.upload-detail-item-edit:hover {
+  background: #f1f4f8;
+}
+
+.upload-detail-item-edit:focus-visible {
+  outline: 2px solid #b08d57;
+}
+
+.upload-detail-item-qty {
+  font-size: 0.7rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.upload-detail-item-direction {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.upload-detail-item-merchant {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+/* The item's tags sit on their own line beneath its name and amount */
+.upload-detail-item-tags {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .upload-detail-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr); /* metadata as tall as it is, the line items the rest */
+  }
+}
+
+.upload-detail-currency-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* The metadata is a narrow column; the line items' table takes the rest of the
+   width, and scrolls inside its card */
+.upload-detail-grid {
+  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+}
+
+.upload-detail-items-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
+
+.upload-detail-items-table {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}

@@ -1,0 +1,1637 @@
+/* Theme.css - the finishing layer over the signed-in app.
+
+   Everything here is scoped to pages with the navbar, so the sign-in page keeps
+   its own look, and the scope's extra weight lets these rules settle the details
+   the page stylesheets leave uneven.
+
+   The principles it follows:
+   - Navy and gold stay the brand. Gold marks where you are and what to press;
+     navy carries headings and chosen controls.
+   - Green and red mean money in and money out: every amount reads in the
+     colour of its direction (red ink for a debit, green for a credit), and a
+     row of line items is tinted the same way, very lightly.
+   - The eye goes to the figure first: large, dark, tabular numbers; labels are
+     small and quiet beneath or above them.
+   - Quiet surfaces: hairline borders, one soft shadow, modest rounding. */
+
+html:has(.container_nav) {
+  /* the 18px set for the sign-in screen is too large for pages of figures and tables */
+  font-size: 16px;
+}
+
+body:has(.container_nav) {
+  --ink: #1b2430;
+  --muted: #5d6877;
+  --subtle: #8a94a3;
+  --line: #e8ebef;
+  --line-strong: #d8dde4;
+  --page: #f5f6f8;
+  --head: #f7f8fa;
+  --surface: #ffffff;
+  --pos: #1b7a4b;
+  --neg: #b42318;
+  --radius: 6px;
+  --radius-lg: 10px;
+  --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.04);
+  --shadow-pop: 0 16px 40px -12px rgba(16, 24, 40, 0.22), 0 4px 10px -4px rgba(16, 24, 40, 0.08);
+  --focus-ring: 0 0 0 3px rgba(176, 141, 87, 0.28);
+
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--ink);
+
+  /* ---------- Figures ---------- */
+
+  /* Numbers line up in columns, so amounts can be compared down a list */
+  & :is(table, .stat-value, .budget-figures, .activity-amount, .chart-hbar-value, .chart-legend-value,
+      .doc-amount, .doc-in-out, .timeline-amount, .upcoming-list, .balance-list, .li-amount,
+      .upload-detail-item-amount, .statement-line-amount, .pending-line-amount) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Money out reads in red ink, money in in green */
+  & :is(.transactions-page .transactions-table td.is-debit, .li-table span.li-amount.is-debit,
+      .upload-detail-item-amount.is-debit, .statement-line-amount.is-debit,
+      .review-page .pending-line-amount.is-debit, .activity-amount.is-negative, .amount-negative) {
+    color: var(--neg);
+  }
+
+  & :is(.transactions-page .transactions-table td.is-credit, .li-table span.li-amount.is-credit,
+      .upload-detail-item-amount.is-credit, .statement-line-amount.is-credit,
+      .review-page .pending-line-amount.is-credit) {
+    color: var(--pos);
+    font-weight: 600;
+  }
+
+  /* ---------- Page structure ---------- */
+
+  /* What a page is for, under its title: quiet, and a comfortable line length */
+  & :is(.dashboard-header, .transactions-header, .page-header, .review-header, .accounts-header, .templates-header) p {
+    max-width: 72ch;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  /* Cards: a hairline, soft rounding and one gentle shadow */
+  & :is(.dashboard-panel, .transactions-scroll, .file-view-wrapper, .statement-table-scroll, .review-panel,
+      .account-card, .upload-detail-card, .glass-panel, .transactions-bulk) {
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  & .dashboard-panel {
+    overflow: hidden;
+  }
+
+  /* inside a tab, what used to be a card of its own is part of the page's card */
+  & .tab-panel > .dashboard-panel {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  & :is(.dashboard-panel-title, .chart-card-head h4) {
+    font-size: 0.95rem;
+    font-weight: 650;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+
+  & .chart-card-head {
+    padding: 16px 20px 10px;
+  }
+
+  & .spending-note {
+    color: var(--subtle);
+  }
+
+  /* ---------- Preferences bar ---------- */
+
+  & .preferences-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+
+  & .preferences-title {
+    font-size: 1.25rem;
+    font-weight: 650;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  & .preferences-btn {
+    color: var(--muted);
+    border-color: var(--line-strong);
+    border-radius: 8px;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+  }
+
+  & .preferences-btn:hover {
+    color: var(--navy);
+    background: var(--head);
+  }
+
+  /* ---------- Navbar ---------- */
+
+  & .navbar-links a,
+  & .navbar-group-toggle {
+    color: rgba(251, 246, 238, 0.66);
+    border-radius: 6px;
+  }
+
+  & .navbar-links a:hover,
+  & .navbar-group-toggle:hover {
+    color: #fbf6ee;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* the page you are on: a gold bar at its edge, rather than a speck beneath it */
+  & .navbar-links a.active {
+    color: #fbf6ee;
+    background: rgba(176, 141, 87, 0.14);
+  }
+
+  & .navbar-links a.active::after {
+    display: none;
+  }
+
+  & .navbar-links a.active::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 0;
+    width: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  /* group headings read as the labels of sections */
+  & .navbar-group-toggle {
+    margin-top: 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(251, 246, 238, 0.5);
+  }
+
+  & .navbar-group-toggle.has-active {
+    color: rgba(251, 246, 238, 0.85);
+  }
+
+  & .navbar-group {
+    border-left-color: rgba(176, 141, 87, 0.22);
+  }
+
+  /* ---------- Tabs ---------- */
+
+  & .tabs-bar {
+    padding: 0 12px 0 8px;
+    border-bottom-color: var(--line);
+  }
+
+  & .tabs-tab {
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  & .tabs-tab:hover {
+    color: var(--ink);
+  }
+
+  & .tabs-tab.is-active {
+    font-weight: 650;
+    color: var(--ink);
+    border-bottom-color: var(--gold);
+  }
+
+  & .tabs-filter {
+    border-radius: 8px;
+  }
+
+  /* ---------- Figures at the top of a tab ---------- */
+
+  & .stat-grid {
+    border-bottom-color: var(--line);
+  }
+
+  & .stat-tile {
+    gap: 4px;
+    padding: 18px 20px;
+    border-right-color: var(--line);
+  }
+
+  & .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+  }
+
+  & .stat-value {
+    font-size: 1.65rem;
+    font-weight: 650;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  & .stat-value.is-pos { color: var(--pos); }
+  & .stat-value.is-neg { color: var(--neg); }
+
+  & .stat-delta {
+    font-size: 0.78rem;
+  }
+
+  & .stat-detail {
+    font-size: 0.8rem;
+    color: var(--subtle);
+  }
+
+  /* ---------- Controls ---------- */
+
+  & .spending-pill {
+    padding: 4px 11px;
+    font-size: 0.78rem;
+    color: var(--ink);
+    border-color: var(--line-strong);
+    border-radius: 6px;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+
+  & .spending-pill:hover {
+    background: var(--head);
+    border-color: #c4cbd4;
+  }
+
+  & .spending-pill.is-on {
+    color: #fff;
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  & .spending-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+  }
+
+  & .container :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea) {
+    font-family: inherit;
+  }
+
+  & .container :is(input:not([type="checkbox"]):not([type="radio"]), select, textarea):focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: var(--focus-ring);
+  }
+
+  & :is(button, a, [role="button"], [role="tab"]):focus-visible {
+    outline: 2px solid rgba(176, 141, 87, 0.7);
+    outline-offset: 2px;
+  }
+
+  /* the main action of a form or page: gold, as elsewhere in the brand */
+  & :is(.account-submit-btn, .upload-detail-view-btn, .match-btn:not(.is-danger), .file-modal-download) {
+    border-radius: var(--radius);
+    font-weight: 600;
+    transition: background-color 0.15s ease;
+  }
+
+  & .transactions-new-tag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  & .transactions-new-tag input {
+    width: 150px;
+  }
+
+  & .transactions-new-tag-btn {
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--navy);
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  & .transactions-new-tag-btn:hover:not(:disabled) {
+    background: #22313f;
+  }
+
+  & .transactions-new-tag-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  /* ---------- Tables ---------- */
+
+  & :is(.transactions-table, .recurring-table, .file-table) th {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    background: var(--head);
+  }
+
+  & :is(.transactions-table, .recurring-table, .file-table) td {
+    font-size: 0.875rem;
+    color: var(--ink);
+  }
+
+  & :is(.transactions-table, .file-table) tbody tr:hover > td {
+    background: #fafbfc;
+  }
+
+  & .transactions-row.is-selected > td {
+    background: #f6f0e6;
+  }
+
+  & .transactions-page .transactions-table td {
+    padding-top: 11px;
+    padding-bottom: 11px;
+  }
+
+  /* ---------- Labels on rows ----------
+     Calm tints, one family each: statements navy, receipts gold, cash sage. A
+     debit is the ordinary case and stays grey; a credit is green. */
+
+  & :is(.transactions-badge, .direction-badge, .activity-badge, .file-type-badge, .doc-badge) {
+    padding: 2px 8px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    border: 0;
+    border-radius: 999px;
+  }
+
+  & :is(.transactions-badge.kind-statement_line, .activity-badge.category-statement, .doc-type-statement) {
+    color: #2f4a6b;
+    background: #ebf0f6;
+  }
+
+  & :is(.transactions-badge.kind-receipt_item, .activity-badge.category-receipt, .doc-type-receipt, .doc-type-scan) {
+    color: #7a5b28;
+    background: #f5eee2;
+  }
+
+  & :is(.activity-badge.category-cash, .doc-type-cash) {
+    color: #3c5a4d;
+    background: #e8f0ec;
+  }
+
+  & .direction-badge.is-debit {
+    color: #4b5563;
+    background: #eff1f4;
+  }
+
+  & .direction-badge.is-credit {
+    color: var(--pos);
+    background: #e7f4ec;
+  }
+
+  & .conversion-badge {
+    font-weight: 600;
+    color: #2f4a6b;
+    background: #ebf0f6;
+    border-color: transparent;
+    border-radius: 999px;
+  }
+
+  /* ---------- Charts ---------- */
+
+  & .chart-axes text {
+    font-size: 11px;
+    fill: #7a8594;
+  }
+
+  & .chart-grid {
+    stroke: #edf0f3;
+  }
+
+  & .chart-tip rect {
+    rx: 6px;
+    fill: #fff;
+    stroke: var(--line-strong);
+  }
+
+  & .chart-tip text {
+    font-size: 11px;
+    fill: var(--muted);
+  }
+
+  & .chart-tip .chart-tip-value {
+    font-size: 12.5px;
+    font-weight: 600;
+    fill: var(--ink);
+  }
+
+  & .chart-legend li {
+    font-size: 0.82rem;
+    border-radius: 4px;
+  }
+
+  & .chart-legend-value {
+    color: var(--muted);
+  }
+
+  & .chart-swatch {
+    border-radius: 3px;
+  }
+
+  & .chart-hbar-track {
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  & .chart-progress {
+    border-radius: 999px;
+    overflow: visible;
+  }
+
+  & .chart-progress > span {
+    border-radius: 999px;
+  }
+
+  /* ---------- Dialogs ---------- */
+
+  & :is(.group-modal, .match-modal, .account-modal, .file-modal-content) {
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-pop);
+    overflow: hidden;
+  }
+
+  & :is(.group-modal-overlay, .match-modal-overlay, .account-modal-overlay, .file-modal-overlay) {
+    background: rgba(16, 20, 24, 0.45);
+  }
+
+  /* ---------- Budgets ---------- */
+
+  & .budget-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  & .budget-status span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 0.65rem;
+    line-height: 1;
+    border-radius: 50%;
+  }
+
+  & .budget-status.is-good span { color: #fff; background: #2f8f5e; }
+  & .budget-status.is-warning span { color: #3d2c06; background: #ecc46a; }
+  & .budget-status.is-serious span { color: #fff; background: #d9774a; }
+  & .budget-status.is-critical span { color: #fff; background: #c2413a; }
+
+  & .budget-name {
+    font-weight: 600;
+  }
+
+  & .budget-form-wide :is(input, select),
+  & .budget-input {
+    box-sizing: border-box;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 0.85rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  & .budget-form-wide .spending-pill {
+    height: 34px;
+    padding: 0 14px;
+  }
+
+  & .analytics-select {
+    border-color: var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  /* ---------- A document's own page ----------
+     On the page itself rather than a white sheet laid over it, like every other page */
+
+  & .upload-detail-page {
+    width: auto;
+    max-width: none;
+    flex: 1;
+    height: 100%;
+    margin: 0;
+    padding: 20px 24px 24px;
+    background: transparent;
+  }
+
+  & .upload-detail-page > .upload-detail-back {
+    align-self: flex-start;
+    margin-bottom: 14px;
+    font-size: 0.85rem;
+    color: var(--gold-dark);
+  }
+
+  & .upload-detail-header {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  /* the document's name, which can be edited: a field, since the title above already names it */
+  & .upload-detail-name-input {
+    flex: 0 1 420px;
+    margin: 0;
+    padding: 7px 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  & .upload-detail-item-row {
+    border-color: var(--line);
+    border-radius: 8px;
+  }
+
+  /* ---------- Links in content ----------
+     Navy with a quiet underline, rather than the browser's bright blue */
+
+  & :is(.container, [role="dialog"]) a:not([class]) {
+    color: var(--navy);
+    text-decoration-color: rgba(44, 62, 80, 0.3);
+    text-underline-offset: 2px;
+  }
+
+  & :is(.container, [role="dialog"]) a:not([class]):hover {
+    color: var(--gold-dark);
+    text-decoration-color: currentColor;
+  }
+
+  /* the pop-up's table starts in line with its heading */
+  & .group-modal-body .recurring-table :is(th, td):first-child {
+    padding-left: 16px;
+  }
+
+  & .group-modal-body .recurring-table :is(th, td):last-child {
+    padding-right: 16px;
+  }
+
+  /* ---------- Templates ----------
+     Laid out from the top like the other pages, in the same type and controls */
+
+  & .templates-page {
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow-y: auto;
+  }
+
+  & .templates-page-container {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 960px;
+    margin: 0;
+    padding: 20px 24px 32px;
+    gap: 20px;
+    font-family: inherit;
+    color: var(--ink);
+  }
+
+  & .templates-page-container .glass-panel {
+    padding: 20px 24px;
+  }
+
+  & .templates-page-container .input-group label {
+    margin-bottom: 6px;
+    font-size: 0.7rem;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+  }
+
+  & .templates-page-container .input-group input {
+    padding: 9px 12px;
+    font-size: 0.9rem;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+  }
+
+  & .templates-page-container .submit-btn {
+    width: auto;
+    height: 38px;
+    padding: 0 18px;
+    font-size: 0.875rem;
+    background: var(--gold);
+    border-radius: var(--radius);
+  }
+
+  & .templates-page-container .submit-btn:hover:not(:disabled) {
+    background: var(--gold-dark);
+  }
+
+  & .templates-page-container h3 {
+    margin: 0 0 12px;
+    font-size: 0.95rem;
+    font-weight: 650;
+    color: var(--ink);
+  }
+
+  & .templates-page-container .templates-list :is(p, .empty-state) {
+    font-style: normal;
+    color: var(--muted);
+  }
+
+  /* ---------- Alerts ---------- */
+
+  & .budget-alerts > li {
+    border-radius: var(--radius);
+  }
+}
+
+/* Dark theme for the signed-in application */
+body:has(.container_nav)[data-theme="dark"] {
+  color-scheme: dark;
+
+  --ink: #e6edf3;
+  --muted: #a8b3c2;
+  --subtle: #8793a3;
+
+  --line: #303b4b;
+  --line-strong: #435064;
+
+  --page: #111827;
+  --head: #1c2737;
+  --surface: #182232;
+
+  --pos: #48c78e;
+  --neg: #ff7777;
+
+  --surface-hover: #29364a;
+
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --shadow-pop: 0 16px 40px -12px rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Dark mode: component-specific overrides ---------- */
+
+body:has(.container_nav)[data-theme="dark"] :is(.transactions-table, .file-table) tbody tr:hover > td {
+  background: #243247;
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-row.is-selected > td {
+  background: #3b342b;
+}
+
+/* Transaction and document badges */
+body:has(.container_nav)[data-theme="dark"] :is(
+  .transactions-badge.kind-statement_line,
+  .activity-badge.category-statement,
+  .doc-type-statement,
+  .conversion-badge
+) {
+  color: #b8d0f0;
+  background: #293b53;
+}
+
+body:has(.container_nav)[data-theme="dark"] :is(
+  .transactions-badge.kind-receipt_item,
+  .activity-badge.category-receipt,
+  .doc-type-receipt,
+  .doc-type-scan
+) {
+  color: #f0d5a6;
+  background: #453824;
+}
+
+body:has(.container_nav)[data-theme="dark"] :is(
+  .activity-badge.category-cash,
+  .doc-type-cash
+) {
+  color: #a9dfc5;
+  background: #263e36;
+}
+
+body:has(.container_nav)[data-theme="dark"] .direction-badge.is-debit {
+  color: #c5ced9;
+  background: #303b4b;
+}
+
+body:has(.container_nav)[data-theme="dark"] .direction-badge.is-credit {
+  color: var(--pos);
+  background: #233d34;
+}
+
+/* Session-expired dialog */
+body:has(.container_nav)[data-theme="dark"] .session-modal {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .session-modal h2 {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .session-modal p {
+  color: var(--muted);
+}
+
+/* Review page */
+body:has(.container_nav)[data-theme="dark"] .review-page .review-header h1,
+body:has(.container_nav)[data-theme="dark"] .review-page .review-panel-title {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .review-header p,
+body:has(.container_nav)[data-theme="dark"] .review-empty-note {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-cols-head {
+  background: var(--head);
+  border-bottom-color: var(--line-strong);
+  color: var(--muted);
+}
+
+/* Receipt-to-statement matching dialog */
+body:has(.container_nav)[data-theme="dark"] .match-modal {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-notice {
+  background: var(--head);
+  border-color: var(--line-strong);
+  border-left-color: var(--pos);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-notice.is-error {
+  border-left-color: var(--neg);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-notice button {
+  color: var(--muted);
+}
+
+
+/* Upload detail page */
+body:has(.container_nav)[data-theme="dark"] .upload-detail-meta-list dd,
+body:has(.container_nav)[data-theme="dark"] .upload-detail-item-name {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .upload-detail-item-date {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .upload-detail-item-edit {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .upload-detail-item-edit:hover {
+  background: var(--surface-hover);
+}
+
+
+/* Dashboard dark-mode readability */
+body:has(.container_nav)[data-theme="dark"] .dashboard-header h1,
+body:has(.container_nav)[data-theme="dark"] .dashboard-header p {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .stat-card .stat-label {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .stat-card .stat-value {
+  color: var(--ink);
+}
+
+/* Dashboard filters */
+body:has(.container_nav)[data-theme="dark"] .table-section .table-controls .filter-group select,
+body:has(.container_nav)[data-theme="dark"] .table-section .table-controls .filter-group input {
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .table-section .table-controls .filter-group select option {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+/* Dashboard table */
+body:has(.container_nav)[data-theme="dark"] .modern-table {
+  border-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .modern-table td {
+  color: var(--ink);
+  border-bottom-color: var(--line);
+}
+
+
+/* Analytics dark-mode readability */
+body:has(.container_nav)[data-theme="dark"] .stat-tile {
+  border-right-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .stat-label,
+body:has(.container_nav)[data-theme="dark"] .chart-axes text,
+body:has(.container_nav)[data-theme="dark"] .chart-tip text,
+body:has(.container_nav)[data-theme="dark"] .chart-center-label,
+body:has(.container_nav)[data-theme="dark"] .timeline-date,
+body:has(.container_nav)[data-theme="dark"] .recurring-table th {
+  fill: var(--muted);
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .stat-value,
+body:has(.container_nav)[data-theme="dark"] .chart-card-head h4,
+body:has(.container_nav)[data-theme="dark"] .chart-center-value,
+body:has(.container_nav)[data-theme="dark"] .timeline-title,
+body:has(.container_nav)[data-theme="dark"] .timeline-toggle,
+body:has(.container_nav)[data-theme="dark"] .link-button {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .chart-grid {
+  stroke: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .chart-crosshair {
+  stroke: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .chart-tip rect {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .timeline-card {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .budget-list li,
+body:has(.container_nav)[data-theme="dark"] .recurring-table th,
+body:has(.container_nav)[data-theme="dark"] .recurring-table td {
+  border-bottom-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .budget-input {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .analytics-select {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+
+/* Transactions page dark-mode readability */
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-header h1 {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-header p,
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-none,
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-empty {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-none,
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-empty {
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-sort {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-sort:hover {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-table tbody tr:hover {
+  background: #243247;
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-edit:hover {
+  background: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-bulk {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .transactions-page .transactions-bulk-clear {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+/* ---------- Accounts page ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .accounts-header h1,
+body:has(.container_nav)[data-theme="dark"] .account-card h2,
+body:has(.container_nav)[data-theme="dark"] .account-list-name,
+body:has(.container_nav)[data-theme="dark"] .account-modal-body h3,
+body:has(.container_nav)[data-theme="dark"] .account-statement-name {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .accounts-header p:not(.creation-msg) {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .account-list-status,
+body:has(.container_nav)[data-theme="dark"] .account-list-meta,
+body:has(.container_nav)[data-theme="dark"] .account-statement-meta {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .account-form-error {
+  color: #ffaaaa;
+  background: #402626;
+  border-color: #704040;
+}
+
+body:has(.container_nav)[data-theme="dark"] .account-modal-header {
+  background: var(--head);
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .account-modal-header p {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .account-modal-close {
+  color: var(--ink);
+}
+
+/* ---------- Statement detail page ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .statement-detail-header h1,
+body:has(.container_nav)[data-theme="dark"] .statement-detail-meta dd {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .statement-detail-meta dt,
+body:has(.container_nav)[data-theme="dark"] .statement-detail-empty {
+  color: var(--muted);
+}
+
+/* ---------- Templates page ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-header h1,
+body:has(.container_nav)[data-theme="dark"] .templates-list h3 {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-header p,
+body:has(.container_nav)[data-theme="dark"] .input-group label {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .glass-panel {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-card);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .input-group input {
+  background: var(--head);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .input-group input:focus {
+  background: var(--surface);
+  border-color: #7198cc;
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table th {
+  background: var(--head);
+  color: var(--muted);
+  border-bottom-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table td {
+  background: transparent;
+  color: var(--ink);
+  border-bottom-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table tbody tr:hover {
+  background: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .no-templates {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .error-message {
+  color: #ffaaaa;
+  background: #402626;
+  border-color: #704040;
+}
+
+/* Keep template delete actions legible in dark mode */
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .delete-btn {
+  background: #482a30;
+  color: #ffaaaa;
+  border-color: #70404a;
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .delete-btn:hover {
+  background: #5a3038;
+  color: #ffd0d0;
+}
+
+/* ---------- File list and upload tables ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .table-wrapper {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .file-table th {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .file-table tbody tr:hover {
+  background: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .select-label-selected,
+body:has(.container_nav)[data-theme="dark"] .select-label {
+  color: var(--ink);
+  border-bottom-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .search-icon {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .search-bar input {
+  background: var(--head);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .search-bar input::placeholder {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .items-per-page-label {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .file-icon-button {
+  color: var(--ink);
+}
+
+/* ---------- Upload confirmation and manual entry ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .upload-modal-field select,
+body:has(.container_nav)[data-theme="dark"] .manual-entry-item-row input {
+  background: var(--head);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .upload-modal-field select option {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .uploads-chip {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .uploads-clear-filters {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .uploads-delete-btn {
+  border-color: #704040;
+}
+
+body:has(.container_nav)[data-theme="dark"] .uploads-delete-btn:hover:not(:disabled) {
+  background: #402626;
+}
+
+/* ---------- File upload drop zone ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .drop-zone {
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .drop-zone:hover {
+  border-color: #7185a0;
+  background: var(--surface);
+}
+
+body:has(.container_nav)[data-theme="dark"] .btn-browse {
+  background-color: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .drop-zone-text,
+body:has(.container_nav)[data-theme="dark"] .drop-zone-subtext,
+body:has(.container_nav)[data-theme="dark"] .drop-zone-hint,
+body:has(.container_nav)[data-theme="dark"] .file-list-header {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .upload-icon {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .file-item {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .uploader-container .file-name {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .uploader-container .file-size {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .clear-button {
+  color: var(--ink);
+  background: var(--head);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .clear-button:hover {
+  background: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .upload-progress {
+  background: var(--line-strong);
+}
+
+/* ---------- Shared page layout and upload messages ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .scans-page {
+  background: var(--page);
+}
+
+body:has(.container_nav)[data-theme="dark"] .page-header h1 {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .page-header p {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .first-upload-desc {
+  color: var(--muted);
+}
+
+/* ---------- Dark mode: tags and tabs ---------- */
+
+/* Tag chips */
+body:has(.container_nav)[data-theme="dark"] .tag-chip {
+  color: var(--ink);
+  background: var(--head);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-chip-remove {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-add-btn:hover:not(:disabled) {
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+/* Tag picker dropdown and input */
+body:has(.container_nav)[data-theme="dark"] .tag-picker-add {
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-picker-input {
+  background: var(--head);
+  color: var(--ink);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-picker-choices button {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-picker-choices button:hover:not(:disabled),
+body:has(.container_nav)[data-theme="dark"] .tag-picker-choices button:focus-visible {
+  background: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-own-label,
+body:has(.container_nav)[data-theme="dark"] .tag-picker-none,
+body:has(.container_nav)[data-theme="dark"] .tag-picker-cancel {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tag-create-choice {
+  color: var(--ink) !important;
+}
+
+/* Tabs */
+body:has(.container_nav)[data-theme="dark"] .tabs-tab:hover,
+body:has(.container_nav)[data-theme="dark"] .tabs-tab.is-active {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .tabs-filter {
+  color: var(--ink);
+}
+
+
+/* ---------- Dark mode: insights readability ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .deeper-list a,
+body:has(.container_nav)[data-theme="dark"] .doc-title a {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .doc-month {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .doc-card.is-unconsolidated {
+  background: var(--surface);
+}
+
+body:has(.container_nav)[data-theme="dark"] .doc-badge.is-consolidated {
+  color: #9be5bd;
+  background: #173b2d;
+  border-color: #28694b;
+}
+
+body:has(.container_nav)[data-theme="dark"] .doc-badge.is-unconsolidated {
+  color: #ffd0a6;
+  background: #472c1d;
+  border-color: #80502e;
+}
+
+body:has(.container_nav)[data-theme="dark"] .doc-badge.is-cash {
+  color: #d0c6ff;
+  background: #30294e;
+  border-color: #51447f;
+}
+
+body:has(.container_nav)[data-theme="dark"] .settings-saved {
+  color: #9be5bd;
+}
+
+body:has(.container_nav)[data-theme="dark"] .budget-ok {
+  color: #9be5bd;
+}
+
+body:has(.container_nav)[data-theme="dark"] .budget-alerts > li {
+  color: var(--ink);
+  background: #47252a;
+  border-color: #783a43;
+}
+
+/* ---------- Dark mode: review page ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .review-page .review-header p {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .review-panel-title,
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-group-name,
+body:has(.container_nav)[data-theme="dark"] .group-modal-head h3 {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .review-empty-note {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-cols-head {
+  color: var(--muted);
+  background: var(--head);
+  border-bottom-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-group,
+body:has(.container_nav)[data-theme="dark"] .statement-group {
+  border-bottom-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-group-meta {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-group-head .group-toggle:hover,
+body:has(.container_nav)[data-theme="dark"] .review-page .pending-group-head .group-toggle:focus-visible,
+body:has(.container_nav)[data-theme="dark"] .group-toggle:hover,
+body:has(.container_nav)[data-theme="dark"] .group-toggle:focus-visible {
+  background: var(--surface-hover);
+}
+
+body:has(.container_nav)[data-theme="dark"] .link-account-btn {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .table-section .table-controls select,
+body:has(.container_nav)[data-theme="dark"] .table-section .table-controls input {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .table-section .table-controls select option {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+
+/* ---------- Dark mode: insights and matching modals ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .conversion-badge.is-missing {
+  color: #ffd0a6;
+  background: #472c1d;
+  border-color: #80502e;
+}
+
+body:has(.container_nav)[data-theme="dark"] .group-modal-head h3 {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-modal {
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-modal-header {
+  background: var(--head);
+  color: var(--ink);
+  border-bottom: 1px solid var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-modal-header p {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-modal-close {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-notice {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--line-strong);
+  border-left-color: var(--pos);
+}
+
+body:has(.container_nav)[data-theme="dark"] .match-notice.is-error {
+  border-left-color: var(--neg);
+}
+
+/* ---------- Dark mode: statement matching ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .statement-group-name {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] .statement-group-meta,
+body:has(.container_nav)[data-theme="dark"] .statement-group-empty,
+body:has(.container_nav)[data-theme="dark"] .group-toggle-chevron {
+  color: var(--muted);
+}
+
+body:has(.container_nav)[data-theme="dark"] .statement-line {
+  border-top-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .statement-line-button {
+  color: var(--ink);
+}
+
+body:has(.container_nav)[data-theme="dark"] button.statement-line-button:hover,
+body:has(.container_nav)[data-theme="dark"] button.statement-line-button:focus-visible {
+  background: var(--surface-hover);
+}
+
+/* ---------- Dark mode: tag picker inside line-item tables ---------- */
+
+body:has(.container_nav)[data-theme="dark"] .li-table .tag-picker-add {
+  color: var(--ink);
+}
+
+/* Keep ordinary table text readable in dark mode */
+body:has(.container_nav)[data-theme="dark"] :is(
+  .transactions-table,
+  .file-table,
+  .recurring-table,
+  .modern-table
+) tbody td {
+  color: var(--ink);
+}
+
+/* Active Templates table: dark mode only */
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table th {
+  background-color: var(--head);
+  color: var(--ink);
+  border-bottom-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table tbody td {
+  background-color: var(--surface);
+  color: #f1f5f9;
+  border-bottom-color: var(--line);
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table tbody tr:hover > td {
+  background-color: #29364a;
+  color: #f1f5f9;
+}
+
+body:has(.container_nav)[data-theme="dark"] .templates-page-container .modern-table tbody tr:hover {
+  background-color: #29364a;
+}
+
+/* ---- Rows of line items outside the shared table, tinted by direction ----
+   The same very light red and green as LineTable's rows */
+body:has(.container_nav) {
+  & :is(.upload-detail-item-row, .statement-line, .pending-line).is-debit,
+  & :is(.li-table tr, .recurring-table tr).is-debit > td,
+  & .line-tint-debit {
+    background: #fdf5f4;
+  }
+
+  & :is(.upload-detail-item-row, .statement-line, .pending-line).is-credit,
+  & :is(.li-table tr, .recurring-table tr).is-credit > td,
+  & .line-tint-credit {
+    background: #f1f9f4;
+  }
+
+  & :is(.line-tint-debit, .line-tint-credit) .line-amount.is-debit { color: var(--neg); }
+  & :is(.line-tint-debit, .line-tint-credit) .line-amount.is-credit { color: var(--pos); font-weight: 600; }
+}
+
+/* ---------- Dark mode: tables of line items (LineTable) ----------
+   The light tints are very pale red and green; on the dark page they become
+   dark ones, so a row still says which way its money went without glaring */
+body:has(.container_nav)[data-theme="dark"] {
+  & .line-table .line-row.is-debit > td { background: #2a1c24; }
+  & .line-table .line-row.is-credit > td { background: #15291f; }
+  & .line-table .line-row.is-debit:hover > td { background: #35222c; }
+  & .line-table .line-row.is-credit:hover > td { background: #1b3629; }
+
+  & .line-table .line-row.is-selected > td {
+    box-shadow: inset 0 1px 0 rgba(230, 237, 243, 0.3), inset 0 -1px 0 rgba(230, 237, 243, 0.3);
+  }
+
+  & .line-table .line-row.is-selected > td:first-child {
+    box-shadow: inset 3px 0 0 var(--gold), inset 0 1px 0 rgba(230, 237, 243, 0.3), inset 0 -1px 0 rgba(230, 237, 243, 0.3);
+  }
+
+  /* statement and receipt rows */
+  & .line-table .line-table-group > td { background: #1c2737; border-top-color: var(--line-strong); }
+  & .line-table .line-table-group.depth-1 > td { background: #212c3c; border-top-color: var(--line); }
+  & .line-table .line-table-group:hover > td { background: #263449; }
+  & .line-table .line-table-group.depth-1:hover > td { background: #2b3a50; }
+
+  & .line-group-toggle { color: var(--ink); background: var(--surface); }
+  & .line-group-name { color: var(--ink); }
+  & .line-group-kind.is-statement { color: #a9c4e8; background: #24344d; }
+  & .line-group-kind.is-receipt { color: #e0c690; background: #3a3020; }
+  & .line-group-kind.is-cash { color: #a9d6bf; background: #1f3a2e; }
+  & .line-table .transactions-badge.kind-statement_line { color: #a9c4e8; background: #24344d; }
+  & .line-table .transactions-badge.kind-receipt_item { color: #e0c690; background: #3a3020; }
+  & .line-table .line-table-cash { color: #a9d6bf; background: #1f3a2e; }
+
+  & .line-table .transactions-edit { color: var(--ink); background: var(--surface); }
+  & .line-table .transactions-edit:hover { background: var(--surface-hover); }
+  & .line-table .transactions-edit.is-danger { color: var(--neg); }
+
+  & .line-bulk { background: var(--surface); border-color: var(--line-strong); }
+  & .line-bulk-clear { color: var(--ink); }
+
+  & .line-tint-debit { background: #2a1c24; }
+  & .line-tint-credit { background: #15291f; }
+}
+
+/* ---------- Dark mode: links and the Transactions toolbar ---------- */
+body:has(.container_nav)[data-theme="dark"] {
+  /* content links are navy in the light theme, which is invisible here */
+  & :is(.container, [role="dialog"]) a:not([class]) {
+    color: #9fc2ee;
+    text-decoration-color: rgba(159, 194, 238, 0.4);
+  }
+
+  & :is(.container, [role="dialog"]) a:not([class]):hover {
+    color: #e0c690;
+  }
+
+  & .transactions-page .transactions-edit,
+  & .transactions-page .transactions-manage-tags-link {
+    color: var(--ink);
+    background: var(--surface);
+    border-color: var(--line-strong);
+  }
+
+  & .transactions-page .transactions-edit:hover,
+  & .transactions-page .transactions-manage-tags-link:hover {
+    background: var(--surface-hover);
+  }
+}
+
+/* ---------- Dark mode: scrollbars ----------
+   The scrolling regions (.scroll-area, App.css) draw their own scrollbars in
+   light greys; on the dark theme they take its surface and line colours, so the
+   track, the thumb's border and the corner where two bars meet are not white */
+body:has(.container_nav)[data-theme="dark"] .scroll-area::-webkit-scrollbar-track,
+body:has(.container_nav)[data-theme="dark"] .scroll-area::-webkit-scrollbar-corner {
+  background: #141d2b;
+}
+
+body:has(.container_nav)[data-theme="dark"] .scroll-area::-webkit-scrollbar-thumb {
+  background: #4a586d;
+  border-color: #141d2b;
+}
+
+body:has(.container_nav)[data-theme="dark"] .scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #66758b;
+}
+
+/* Browsers without ::-webkit-scrollbar (Firefox) take the colours from scrollbar-color */
+@supports not selector(::-webkit-scrollbar) {
+  body:has(.container_nav)[data-theme="dark"] .scroll-area {
+    scrollbar-color: #4a586d #141d2b;
+  }
+}
+
+/* ---------- Dark mode: tinted rows outside LineTable, and outlines in tables ---------- */
+body:has(.container_nav)[data-theme="dark"] {
+  & :is(.upload-detail-item-row, .statement-line, .pending-line).is-debit,
+  & :is(.li-table tr, .recurring-table tr).is-debit > td {
+    background: #2a1c24;
+  }
+
+  & :is(.upload-detail-item-row, .statement-line, .pending-line).is-credit,
+  & :is(.li-table tr, .recurring-table tr).is-credit > td {
+    background: #15291f;
+  }
+
+  /* the dashed "+ Tag" outline in a row, and the upload boxes' dashed edge */
+  & .tag-add-btn {
+    color: var(--muted);
+    border-color: var(--line-strong);
+  }
+
+  & .tag-add-btn:hover {
+    color: var(--ink);
+    border-color: var(--subtle);
+  }
+
+  & .upload-box {
+    border-color: var(--line-strong);
+  }
+}
+
+/* ---------- Dark mode: fields inside the upload and manual-entry tables ---------- */
+body:has(.container_nav)[data-theme="dark"] :is(.li-table input, .li-table select, .upload-modal-name-input) {
+  color: var(--ink);
+  background: var(--head);
+  border-color: var(--line-strong);
+}
+
+body:has(.container_nav)[data-theme="dark"] :is(.li-table input, .upload-modal-name-input)::placeholder {
+  color: var(--subtle);
+}

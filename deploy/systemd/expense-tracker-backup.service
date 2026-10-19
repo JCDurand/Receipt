@@ -1,0 +1,10 @@
+[Unit]
+Description=Smart Expense Tracker backup (database and uploaded documents)
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+User=deploy
+WorkingDirectory=/srv/expense-tracker
+ExecStart=/srv/expense-tracker/deploy/backup.sh

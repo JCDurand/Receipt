@@ -1,0 +1,92 @@
+services:
+   web:
+      build:
+         context: .
+         # The container's user gets the id of the host user who owns secrets/
+         # and this folder. The startup scripts write APP_UID to .env.
+         args:
+            APP_UID: ${APP_UID:-1000}
+      container_name: django_app
+      environment:
+         - DATABASE_HOST=db
+         - DATABASE_PORT=5432
+         - DJANGO_SECRET_KEY_FILE=/run/secrets/django_secret_key
+         - POSTGRES_PASSWORD_FILE=/run/secrets/postgres_password
+      secrets:
+         - django_secret_key
+         - postgres_password
+      ports:
+         - "8000:8000"
+      volumes:
+         - .:/app
+      env_file:
+         - .env
+      depends_on:
+         db:
+            condition: service_healthy
+      healthcheck:
+         test: ["CMD-SHELL", "curl --fail --silent http://localhost:8000/api/health/ >/dev/null || exit 1"]
+         interval: 5s
+         timeout: 5s
+         retries: 24
+         start_period: 60s
+      restart: unless-stopped
+
+   frontend:
+      build: 
+         context: receipt
+         dockerfile: Dockerfile
+      container_name: receipt_frontend
+      ports:
+         - "80:80"
+      depends_on:
+         web:
+            condition: service_healthy
+      restart: unless-stopped
+
+   dbeaver:
+      image: dbeaver/cloudbeaver:latest
+      container_name: dbeaver
+      environment:
+         - CB_SERVER_NAME=Smart Expense Tracker DBeaver
+         - CB_ADMIN_NAME=${DBEAVER_USER:-admin}
+         - CB_ADMIN_PASSWORD=${DBEAVER_PASSWORD:-dbeaver}
+      ports:
+         - "8978:8978"
+      volumes:
+         - dbeaver_config:/opt/cloudbeaver/workspace
+      depends_on:
+         db:
+            condition: service_healthy
+      restart: unless-stopped
+
+   db:
+      image: postgres:17
+      container_name: postgres_db
+      ports:
+         - "5433:5432"
+      volumes:
+      - postgres_db:/var/lib/postgresql/data/
+      environment:
+         POSTGRES_DB: ${POSTGRES_DB}
+         POSTGRES_USER: ${POSTGRES_USER}
+         POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      secrets:
+         - postgres_password
+      healthcheck:
+         test: ["CMD-SHELL","pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+         interval: 10s
+         retries: 5
+         start_period: 30s
+         timeout: 10s
+
+volumes:
+ postgres_db:
+ dbeaver_config:
+
+# Created by generate_secrets.sh
+secrets:
+ django_secret_key:
+    file: ./secrets/django_secret_key
+ postgres_password:
+    file: ./secrets/postgres_password

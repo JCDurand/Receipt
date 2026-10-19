@@ -1,0 +1,848 @@
+/* Review.css - styles for manual review page, heavily based on Dashboard.css */
+
+/* Table Section */
+.table-section .table-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.table-section .table-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.table-section .table-controls select,
+.table-section .table-controls input {
+  padding: 8px 14px;
+  border: 1px solid rgba(255, 254, 254, 0.08);
+  border-radius: 10px;
+  font-size: 0.875rem;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(20, 15, 15, 0.8);
+  transition: all 0.2s ease;
+  min-width: 120px;
+}
+
+.table-section .table-controls select:focus,
+.table-section .table-controls input:focus {
+  outline: none;
+  border-color: var(--navy);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.15);
+}
+
+.table-section .table-controls select option {
+  background: #1e293b;
+  color: black;
+}
+
+.table-section .table-controls input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* Modern Table */
+.modern-table-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.modern-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.modern-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+}
+
+.modern-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  border: 1px solid black;
+}
+
+.modern-table thead {
+  background: #2c3e50;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.modern-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: rgba(252, 250, 250, 0.864);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+  height: 45px;
+  vertical-align: middle;
+  position: sticky;
+  top: 0;
+  background: #2c3e50;
+  z-index: 5;
+}
+
+.modern-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  color: rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  height: 52px;
+  vertical-align: middle;
+}
+
+.modern-table tbody tr {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.modern-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.modern-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.modern-table .status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.status-badge.completed {
+  background: rgba(52, 211, 153, 0.1);
+  color: #34d399;
+}
+
+.status-badge.pending {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+}
+
+.status-badge.failed {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+.status-badge .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-badge.completed .status-dot {
+  background: #34d399;
+}
+
+.status-badge.pending .status-dot {
+  background: #fbbf24;
+}
+
+.status-badge.failed .status-dot {
+  background: #f87171;
+}
+
+.modern-table .amount-positive {
+  color: #34d399;
+}
+
+.modern-table .amount-negative {
+  color: #f87171;
+}
+
+@media (max-width: 768px) {
+  .table-section .table-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .table-section .table-controls {
+    flex-wrap: wrap;
+  }
+
+  .table-section .table-controls select,
+  .table-section .table-controls input {
+    flex: 1;
+    min-width: 100px;
+  }
+
+  .modern-table {
+    font-size: 0.75rem;
+  }
+
+  .modern-table th,
+  .modern-table td {
+    padding: 8px 12px;
+  }
+}
+
+/* ==========================================================================
+   Review page layout
+   Rules are scoped to .review-page: the table classes above are shared
+   with the Dashboard, whose layout must not change. The exceptions are the
+   statement list and the Match modal, which render outside the page.
+   The page is offset by the fixed navbar, and its two panels scroll inside
+   themselves rather than growing past the screen.
+   ========================================================================== */
+.container.review-page {
+  /* .container centres its child, which lets a wide child spill behind the
+     navbar and off the right edge; stretch it to the space beside the navbar */
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-left: 15%; /* navbar width */
+}
+
+.review-page .review-section {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.review-page .review-header {
+  flex-shrink: 0;
+  margin-bottom: 16px;
+}
+
+.review-page .review-header h1 {
+  margin: 0 0 6px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.review-page .review-header p {
+  margin: 0;
+  max-width: 760px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #4b5563;
+}
+
+.review-page .table-controls {
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+/* Two panels side by side: pending line items on the left, statements on the
+   right. They stack when there is not room for both. */
+.review-page .review-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  align-items: start;
+  min-width: 0;
+}
+
+.review-page .review-panel {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.review-page .review-panel-title {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+  border-bottom: 1px solid var(--line);
+}
+
+/* Each panel scrolls within itself rather than lengthening the page */
+.review-page .review-panel-body {
+  min-height: 160px;
+  max-height: calc(100vh - 270px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+.review-empty-note {
+  margin: 0;
+  padding: 24px 16px;
+  color: #666;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* ---- Pending line items, grouped under their receipt ---- */
+.review-page .pending-cols-head,
+.review-page .pending-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 90px;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 16px 8px 32px; /* indented beneath the receipt's header */
+}
+
+.review-page .pending-line {
+  border-top: 1px solid var(--line);
+  font-size: 0.8125rem;
+  color: var(--ink);
+}
+
+.review-page .pending-cols-head span:last-child,
+.review-page .pending-line-amount {
+  text-align: right;
+}
+
+.review-page .pending-cols-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #f5f7fa;
+  border-bottom: 1px solid #cfd6de;
+  color: #4b5563;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.review-page .pending-group {
+  border-bottom: 1px solid #e3e7ec;
+}
+
+/* A receipt's header is what is matched: it can be dragged onto a statement line, and
+   carries the buttons to link an account and to match */
+.review-page .pending-group-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--head);
+  cursor: grab;
+}
+
+.review-page .pending-group-head.is-dragging {
+  opacity: 0.4;
+}
+
+.review-page .pending-group-head .group-toggle {
+  flex: 1 1 auto;
+  width: auto;
+  min-width: 0;
+  background: transparent;
+}
+
+.review-page .pending-group-head .group-toggle:hover,
+.review-page .pending-group-head .group-toggle:focus-visible {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.review-page .pending-group-actions {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  padding-right: 16px;
+}
+
+.review-page .pending-group-head .pending-group-meta {
+  white-space: normal;
+}
+
+.review-page .pending-group-meta .nowrap {
+  white-space: nowrap;
+}
+
+.review-page .pending-group-account.is-unlinked {
+  color: #a15c07;
+}
+
+.review-page .pending-empty {
+  margin: 0;
+  padding: 10px 16px 10px 32px;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.review-page .pending-group-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.review-page .pending-group-meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  color: #5b6672;
+}
+
+.review-page .pending-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* a line item's name (with the name it was read with beneath it, if renamed) and, under
+   that, its merchant and date */
+.review-page .pending-line-desc {
+  min-width: 0;
+}
+
+.pending-line-meta,
+.statement-line-meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.review-page .pending-line-amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.match-btn {
+  padding: 6px 12px;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.match-btn:hover:not(:disabled) {
+  background: var(--gold-dark);
+}
+
+.match-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* a button which deletes something */
+.match-btn.is-danger {
+  background: var(--neg);
+}
+
+.match-btn.is-danger:hover:not(:disabled) {
+  background: #8f1d17;
+}
+
+.link-account-btn {
+  padding: 6px 12px;
+  background: var(--surface);
+  color: var(--navy);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.link-account-btn:hover:not(:disabled) {
+  border-color: var(--navy);
+}
+
+.link-account-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Statements and their line items ----
+   Not scoped to .review-page: the Match modal shows the same list. */
+.statement-tree {
+  display: flex;
+  flex-direction: column;
+}
+
+.statement-group {
+  border-bottom: 1px solid #e3e7ec;
+}
+
+/* A group's header is a button: clicking it collapses the group's line items.
+   Shared by the receipt groups and the statement groups. */
+.group-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 16px;
+  background: var(--head);
+  border: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.group-toggle:hover,
+.group-toggle:focus-visible {
+  background: #eceff3;
+  outline: none;
+}
+
+.group-toggle-chevron {
+  flex-shrink: 0;
+  width: 1em;
+  color: #5b6672;
+  transition: transform 0.15s ease;
+}
+
+.group-toggle-chevron.is-open {
+  transform: rotate(90deg);
+}
+
+.group-toggle-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.statement-group-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.statement-group-meta {
+  font-size: 0.75rem;
+  color: #5b6672;
+}
+
+.statement-group-empty {
+  margin: 0;
+  padding: 10px 16px 10px 32px;
+  font-size: 0.8125rem;
+  color: #666;
+}
+
+/* A statement can have hundreds of lines: its list scrolls within itself */
+.statement-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+.statement-line {
+  border-top: 1px solid #eef0f3;
+  transition: background-color 0.15s ease;
+}
+
+.statement-line-button {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 16px 8px 32px; /* indented beneath the statement's header */
+  background: transparent;
+  border: none;
+  font: inherit;
+  font-size: 0.8125rem;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+button.statement-line-button {
+  cursor: pointer;
+}
+
+button.statement-line-button:hover,
+button.statement-line-button:focus-visible {
+  background: #f8f9fb;
+  outline: none;
+}
+
+.statement-line.is-drag-over {
+  background: rgba(176, 141, 87, 0.15);
+  outline: 2px dashed var(--gold);
+  outline-offset: -2px;
+}
+
+.statement-line.is-matched {
+  opacity: 0.55;
+}
+
+.statement-line-tag {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 0 6px;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--pos);
+  border: 1px solid rgba(28, 124, 77, 0.3);
+  border-radius: var(--radius);
+  vertical-align: middle;
+}
+
+button.statement-line-button:disabled {
+  cursor: not-allowed;
+}
+
+.statement-line-date,
+.statement-line-amount {
+  white-space: nowrap;
+}
+
+.statement-line-desc {
+  min-width: 0;
+}
+
+.statement-line-name {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.statement-line-name .li-name {
+  flex: 0 1 auto;
+}
+
+.statement-line-name .statement-line-tag {
+  flex-shrink: 0;
+}
+
+/* money out is red and money in green, neither with a sign */
+.statement-line-amount.is-debit,
+.review-page .pending-line-amount.is-debit {
+  color: var(--neg);
+}
+
+.statement-line-amount.is-credit,
+.review-page .pending-line-amount.is-credit {
+  color: var(--pos);
+}
+
+/* ---- Match modal ---- */
+.match-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000; /* above the navbar */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(16, 20, 24, 0.55);
+}
+
+.match-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 680px;
+  max-height: 85vh;
+  background: #fff;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.4);
+}
+
+.match-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 16px 20px;
+  background: #2c3e50;
+  color: #fff;
+}
+
+.match-modal-header h3 {
+  margin: 0 0 4px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.match-modal-header p {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.match-modal-close {
+  flex-shrink: 0;
+  padding: 0 4px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.match-modal-body {
+  overflow-y: auto;
+}
+
+.match-modal-note {
+  margin: 0;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+
+/* the small dialogs: link an account, confirm */
+.link-account-modal {
+  max-width: 460px;
+}
+
+.link-account-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+}
+
+.link-account-body p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.45;
+}
+
+.link-account-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.link-account-body select {
+  padding: 8px 10px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.link-account-hint {
+  color: var(--muted);
+  font-size: 0.78rem !important;
+}
+
+.link-account-error {
+  color: var(--neg);
+}
+
+.link-account-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---- The popup reporting a match, or why one could not be made ---- */
+.match-notice {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2100;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: calc(100% - 40px);
+  max-width: 460px;
+  box-sizing: border-box;
+  padding: 14px 18px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-left: 4px solid var(--pos);
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.25), 0 8px 10px -6px rgba(0, 0, 0, 0.25);
+  color: #1f2937;
+}
+
+.match-notice.is-error {
+  border-left-color: var(--neg);
+}
+
+.match-notice > div {
+  flex: 1;
+  min-width: 0;
+}
+
+.match-notice p {
+  margin: 4px 0 0 0;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
+
+.match-notice button {
+  padding: 0 4px;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+/* Keep the page clear of the navbar as it narrows (see Navbar.css) */
+@media (max-width: 768px) {
+  .container.review-page {
+    padding-left: 100px;
+  }
+
+  .review-page .review-section {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container.review-page {
+    padding-left: 80px;
+  }
+
+  .review-page .review-section {
+    padding: 12px;
+  }
+
+  .review-page .review-header h1 {
+    font-size: 1.3rem;
+  }
+}

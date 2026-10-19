@@ -1,0 +1,3 @@
+Merchant,Date,Item,Quantity,Unit Price,Amount
+Test Merchant,15/08/2026,Milk,2,R28.99,R57.98
+Test Merchant,INVALID_DATE,Bread,1,R18.50,R18.50

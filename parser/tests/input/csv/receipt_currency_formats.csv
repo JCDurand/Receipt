@@ -1,0 +1,4 @@
+Merchant,Date,Item,Quantity,Unit Price,Amount
+Test Merchant,2026-08-12,Test Item,1,1000.00,1000.00
+Test Merchant,2026-08-12,Test Item,1,R1000.00,R1000.00
+Test Merchant,2026-08-12,Test Item,1,"R1,000.00","R1,000.00"

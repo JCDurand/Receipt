@@ -1,0 +1,373 @@
+/* Transactions.css - the page listing every line item */
+
+.container.transactions-page {
+  /* stretch beside the fixed navbar, as on the Review page */
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-left: 15%; /* navbar width */
+}
+
+/* A column as tall as the screen: the heading and filters keep their height and
+   the table takes what is left, so its bottom edge, and the sideways scrollbar
+   along it, always sits at the bottom of the window however much they wrap */
+.transactions-page .transactions-section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.transactions-page .transactions-header {
+  flex-shrink: 0;
+}
+
+.transactions-page .transactions-header h1 {
+  margin: 0 0 6px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.transactions-page .transactions-header p {
+  margin: 0 0 16px 0;
+  max-width: 760px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #4b5563;
+}
+
+.transactions-page .transactions-toolbar {
+  flex-shrink: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.transactions-page .transactions-toolbar input,
+.transactions-page .transactions-toolbar select {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.transactions-page .transactions-toolbar input:focus,
+.transactions-page .transactions-toolbar select:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.15);
+}
+
+.transactions-page .transactions-search {
+  flex: 1 1 260px;
+  max-width: 380px;
+}
+
+.transactions-page .transactions-count {
+  margin-left: auto;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.transactions-page .transactions-none,
+.transactions-page .transactions-empty {
+  padding: 32px;
+  text-align: center;
+  color: #666;
+  border: 1px dashed #100c0cff;
+}
+
+.transactions-page .transactions-empty p {
+  margin: 0 0 8px 0;
+}
+
+/* Many columns: the table scrolls within itself, both ways, under a fixed
+   heading. It is as tall as its rows, up to what the page has left. */
+.transactions-page .transactions-scroll {
+  flex: 0 1 auto;
+  min-height: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.transactions-page .transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.transactions-page .transactions-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 0;
+  background: var(--head);
+  box-shadow: inset 0 -1px 0 var(--line-strong); /* a border would scroll away from a sticky heading */
+  text-align: left;
+  white-space: nowrap;
+}
+
+.transactions-page .transactions-sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #4b5563;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.transactions-page .transactions-sort:hover {
+  color: var(--navy);
+}
+
+.transactions-page .transactions-sort-arrow {
+  display: inline-block;
+  width: 0.8em;
+  font-size: 0.6rem;
+}
+
+.transactions-page .transactions-table td {
+  padding: 10px 12px;
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+  vertical-align: top;
+}
+
+.transactions-page .transactions-table tbody tr:hover {
+  background: #f8f9fb;
+}
+
+.transactions-page .nowrap {
+  white-space: nowrap;
+}
+
+.transactions-page .is-numeric {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* money out is red and money in green, neither with a sign */
+.transactions-page .transactions-table td.is-debit {
+  color: var(--neg);
+}
+
+.transactions-page .transactions-table td.is-credit {
+  color: var(--pos);
+}
+
+.transactions-page .transactions-edit {
+  padding: 2px 10px;
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--navy);
+  background: transparent;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.transactions-page .transactions-edit:hover {
+  background: #f1f4f8;
+}
+
+.transactions-page .transactions-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* the button which removes the line item */
+.transactions-page .transactions-edit.is-danger {
+  color: var(--neg);
+  border-color: rgba(179, 38, 30, 0.35);
+}
+
+.transactions-page .transactions-edit.is-danger:hover {
+  background: rgba(179, 38, 30, 0.08);
+}
+
+.transactions-page .transactions-edit:focus-visible {
+  outline: 2px solid #b08d57;
+}
+
+/* Long text is cut short with the whole of it in the tooltip */
+.transactions-page .transactions-text {
+  max-width: 240px;
+  min-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.transactions-page .transactions-badge {
+  display: inline-block;
+  padding: 1px 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+}
+
+.transactions-page .transactions-badge.kind-statement_line {
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.35);
+}
+
+.transactions-page .transactions-badge.kind-receipt_item {
+  color: #a15c07;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.transactions-page .transactions-more {
+  flex-shrink: 0;
+  display: block;
+  margin: 12px auto 0;
+  padding: 7px 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--navy);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.transactions-page .transactions-more:hover {
+  border-color: var(--navy);
+}
+
+/* Keep the page clear of the navbar as it narrows (see Navbar.css) */
+@media (max-width: 768px) {
+  .container.transactions-page {
+    padding-left: 100px;
+  }
+
+  .transactions-page .transactions-section {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container.transactions-page {
+    padding-left: 80px;
+  }
+}
+
+/* Picking line items by clicking their rows, to remove several at once */
+.transactions-row {
+  cursor: pointer;
+}
+
+.transactions-row.is-selected > td {
+  background: #eaf2fc;
+}
+
+.transactions-select {
+  margin-right: 8px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.transactions-bulk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  background: #fff;
+  border: 1px solid #c9d6e8;
+  border-radius: 3px;
+}
+
+.transactions-bulk-delete {
+  padding: 6px 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #d03b3b;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.transactions-bulk-clear {
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid #c4ccd6;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.transactions-bulk-list {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  font-size: 0.85rem;
+}
+
+/* Tags are renamed, nested and deleted on the Tags page */
+.transactions-page .transactions-manage-tags-link {
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.transactions-page .transactions-manage-tags-link:hover {
+  background: var(--head);
+}
+
+.transactions-page .transactions-tag-error {
+  font-size: 0.8rem;
+  color: var(--neg);
+}
+
+/* the button which marks a line item as a subscription */
+.transactions-page .transactions-edit.is-subscription.is-on {
+  color: #8b703e;
+  background: rgba(176, 141, 87, 0.14);
+  border-color: rgba(176, 141, 87, 0.45);
+}
+
+body[data-theme="dark"] .transactions-page .transactions-edit.is-subscription.is-on {
+  color: #d9bd8c;
+}
+
+.transactions-page .transactions-error {
+  margin: 0 0 12px;
+  color: var(--neg);
+}
+
+.transactions-page .transactions-group-controls {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.transactions-page .transactions-group-controls .transactions-edit {
+  padding: 4px 10px;
+}

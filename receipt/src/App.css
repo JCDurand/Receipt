@@ -1,0 +1,228 @@
+:root {
+  --bg-card: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.12);
+  --shadow-glass: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* The app's palette. Navy and gold are the brand; the rest are neutrals, and
+     red and green only for money going out and coming in. */
+  --navy: #2c3e50;
+  --gold: #b08d57;
+  --gold-dark: #97763f;
+  --ink: #1f2933;
+  --muted: #5b6672;
+  --line: #e4e7ec;
+  --line-strong: #cfd6de;
+  --surface: #ffffff;
+  --page: #f4f5f7;
+  --head: #f3f5f8;
+  --neg: #b3261e;
+  --pos: #1c7c4d;
+  --radius: 3px;
+}
+
+* {
+  scrollbar-color: transparent transparent;
+}
+
+/* hide scrollbars */
+*::-webkit-scrollbar {
+  width: 12px;    
+  height: 12px;           
+  background: transparent; 
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;  
+  border: none;          
+}
+
+
+*::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 6px;      
+  border: none;              
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-left: 15%;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* A region which scrolls, with scrollbars which stay visible. The rules above hide
+   every scrollbar in the app, so this opts out of them: the colour and width are put
+   back to auto, since setting scrollbar-color to anything else (as above) stops
+   Chrome and Safari using the ::-webkit-scrollbar styling below. This also stops macOS
+   hiding the bars until they are used, which leaves nothing to show that there is
+   more to scroll to, sideways especially. */
+.scroll-area {
+  overflow: auto;
+  scrollbar-color: auto;
+  scrollbar-width: auto;
+}
+
+.scroll-area::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+  background: #e6e9ee;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+  background: #8c98a6;
+  border: 3px solid #e6e9ee;
+  border-radius: 8px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb:hover {
+  background: #66717e;
+}
+
+.scroll-area::-webkit-scrollbar-corner {
+  background: #e6e9ee;
+}
+
+/* Browsers without ::-webkit-scrollbar (Firefox) take their colours from this
+   instead; elsewhere it would replace the styling above, so it is not set there */
+@supports not selector(::-webkit-scrollbar) {
+  .scroll-area {
+    scrollbar-color: #8c98a6 #e6e9ee;
+  }
+}
+
+/* Everything with the navbar is the app itself, as opposed to the login screen,
+   which keeps its own dark look (both are built on .container). The app is
+   flat: a plain light page, left-aligned, with no drifting background shapes. */
+body:has(.container_nav) {
+  background: var(--page);
+}
+
+body:has(.container_nav) .container {
+  background: var(--page);
+  color: var(--ink);
+  text-align: left;
+}
+
+body:has(.container_nav) .container::before,
+body:has(.container_nav) .container::after {
+  display: none;
+}
+
+/* Dialogs sit outside .container but are part of the app too */
+body:has(.container_nav) [role="dialog"] {
+  text-align: left;
+  color: var(--ink);
+}
+
+/* Session-expired banner, rendered globally by AuthProvider so it can
+   appear over whichever page the user is on when their session expires. */
+.session-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(16, 20, 24, 0.55);
+  display: flex;
+  align-items: center;
+  padding-left: 80px;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.session-modal {
+  background: #ffffff;
+  padding: 28px 32px;
+  max-width: 380px;
+  width: calc(100% - 48px);
+  text-align: center;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.4);
+}
+
+.session-modal h2 {
+  margin: 0 0 12px 0;
+  color: #101418;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.session-modal p {
+  margin: 0;
+  color: rgba(16, 20, 24, 0.65);
+  font-size: 0.95rem;
+}
+
+/* Animated Background Orbs */
+.container::before,
+.container::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.2;
+  animation: floatOrb 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.container::before {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, #B08D57, #DCC9A6);
+  top: -100px;
+  right: -100px;
+  animation-delay: 0s;
+}
+
+.container::after {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, #DCC9A6, #B08D57);
+  bottom: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+@keyframes floatOrb {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lineGrow {
+  from {
+    width: 0px;
+    border: 1px solid #2C3E50;
+  }
+  to {
+    width: 290px;
+    border: 1px solid #FBF6EE;
+  }
+}
+
+@keyframes lineBreathe {
+  from {
+    width: 290px;
+    border: 1px solid #FBF6EE;
+  }
+  to {
+    width: 285px;
+    border: 1px solid #FBF6EE;
+  }
+}

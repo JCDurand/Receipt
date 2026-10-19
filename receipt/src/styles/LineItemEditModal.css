@@ -1,0 +1,44 @@
+/* LineItemEditModal.css - the fields of the edit line item dialog, which is
+   otherwise dressed as the other small dialogs (see Review.css) */
+
+.li-edit-body input[type="text"],
+.li-edit-body input[type="date"],
+.li-edit-body input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.li-edit-body input:focus,
+.li-edit-body select:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.15);
+}
+
+.li-edit-body input.is-missing {
+  border-color: var(--neg);
+}
+
+.li-edit-pair {
+  display: flex;
+  gap: 12px;
+}
+
+.li-edit-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.li-edit-field select {
+  width: 100%;
+}

@@ -1,0 +1,122 @@
+/* LineItemsTable.css - the editable line items in the upload and manual entry dialogs,
+   which are dark; so the amounts are the light shades of red and green when they are
+   only shown, and the darker ones when they are typed into a light box */
+
+.file-modal-content.file-modal-wide {
+  max-width: 1080px;
+}
+
+.li-scroll {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid rgba(184, 141, 87, 0.2);
+}
+
+.li-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  color: rgba(251, 246, 238, 0.85);
+}
+
+.li-table.has-quantity {
+  min-width: 950px;
+}
+
+.li-table th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding: 6px 8px;
+  background: #22303f;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(251, 246, 238, 0.5);
+  white-space: nowrap;
+}
+
+.li-table td {
+  padding: 6px 8px;
+  border-top: 1px solid rgba(184, 141, 87, 0.1);
+  text-align: left;
+  vertical-align: middle;
+}
+
+.li-table .li-col-name { width: 22%; }
+.li-table .li-col-merchant { width: 17%; }
+.li-table .li-col-date { width: 130px; }
+.li-table .li-col-direction { width: 110px; }
+.li-table .li-col-quantity { width: 84px; }
+.li-table .li-col-amount { width: 100px; }
+.li-table .li-col-remove { width: 36px; }
+
+.li-table input,
+.li-table select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid rgba(184, 141, 87, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+
+.li-table input.is-missing {
+  border-color: #f87171;
+}
+
+.li-col-name > span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+/* the amount: red when money went out, green when it came in, with no sign either way */
+.li-table .li-amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.li-table span.li-amount {
+  display: block;
+  text-align: right;
+}
+
+.li-table span.li-amount.is-debit {
+  color: #ff8a80;
+}
+
+.li-table span.li-amount.is-credit {
+  color: #6ee7a0;
+}
+
+.li-table input.li-amount {
+  text-align: right;
+}
+
+.li-table input.li-amount.is-debit {
+  color: #b3261e;
+}
+
+.li-table input.li-amount.is-credit {
+  color: #1c7c4d;
+}
+
+/* the tag picker was made for light pages: on this dark table its add button needs to be seen */
+.li-table .tag-add-btn {
+  color: rgba(251, 246, 238, 0.8);
+  border-color: rgba(251, 246, 238, 0.4);
+}
+
+.li-table .tag-add-btn:hover:not(:disabled) {
+  color: #fff;
+  border-color: #DCC9A6;
+}
+
+.li-table .tag-picker-add {
+  color: #2c3e50;
+}

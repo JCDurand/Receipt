@@ -1,0 +1,408 @@
+/* Insights.css - the dashboard's analysis pages: clickable charts, the group
+   pop-up, budgets, the statement and receipt timeline, and settings */
+
+/* ---- Clickable chart parts ---- */
+.chart-legend li.is-clickable,
+.chart-hbars li.is-clickable {
+  cursor: pointer;
+}
+
+.chart-hbars li.is-clickable:hover,
+.chart-hbars li.is-clickable:focus-visible,
+.chart-legend li.is-clickable:hover,
+.chart-legend li.is-clickable:focus-visible {
+  background: var(--head);
+  outline: none;
+}
+
+/* A bar divided into labelled parts */
+.chart-hbar-track .chart-stack {
+  display: flex;
+  height: 100%;
+}
+
+.chart-hbar-track .chart-stack i {
+  display: block;
+  height: 100%;
+  border-right: 1px solid var(--surface);
+}
+
+/* A dashed line in a legend: a level, as opposed to a series */
+.chart-swatch.chart-swatch-line {
+  height: 0;
+  width: 16px;
+  background: none;
+  border-top: 2px dashed;
+}
+
+/* ---- Where a line item was converted from another currency ---- */
+.conversion-badge {
+  display: inline-block;
+  padding: 0 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  color: #174a8c;
+  background: #e6effa;
+  border: 1px solid #b9d0ee;
+  border-radius: var(--radius);
+  cursor: help;
+}
+
+.conversion-badge.is-missing {
+  color: #8a3b00;
+  background: #fdeede;
+  border-color: #f2c79b;
+}
+
+/* ---- The pop-up for one group on a chart ---- */
+.group-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(16, 20, 24, 0.55);
+}
+
+.group-modal {
+  display: flex;
+  flex-direction: column;
+  width: min(860px, 100%);
+  max-height: 86vh;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.group-modal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.group-modal-head h3 {
+  margin: 0 0 2px;
+  font-size: 1.05rem;
+  color: var(--navy);
+}
+
+.group-modal-head p {
+  margin: 0;
+}
+
+.group-modal-close {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.group-modal-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.group-modal-controls .spending-group {
+  flex: 1;
+  min-width: 240px;
+}
+
+.group-modal-sort {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.group-modal-body {
+  overflow: auto;
+}
+
+.group-modal-body .recurring-table td.num,
+.group-modal-body .recurring-table th.num {
+  white-space: nowrap;
+}
+
+/* ---- Budgets ---- */
+.budget-form.budget-form-wide {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  padding: 12px 16px 16px;
+  border-top: 1px solid var(--line);
+}
+
+.budget-form-wide label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.budget-input.budget-input-narrow {
+  width: 70px;
+}
+
+.budget-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.budget-ok {
+  margin: 0;
+  padding: 16px;
+  font-size: 0.875rem;
+  color: #14532d;
+}
+
+.budget-alerts {
+  margin: 0;
+  padding: 0 16px 12px;
+  list-style: none;
+}
+
+.budget-alerts > li {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+  background: #fdf3f2;
+  border: 1px solid #efc2bd;
+  border-left: 4px solid #d03b3b;
+  border-radius: var(--radius);
+}
+
+.budget-alerts > li > strong span {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  line-height: 16px;
+  text-align: center;
+  color: #fff;
+  background: #d03b3b;
+  border-radius: 50%;
+}
+
+.budget-alerts ul {
+  margin: 6px 0 0;
+  padding-left: 20px;
+  color: var(--ink);
+}
+
+.recurring-table .is-neg { color: var(--neg); }
+.recurring-table .is-pos { color: var(--pos); }
+
+/* ---- Subscriptions and the overview ---- */
+.upcoming-list,
+.deeper-list {
+  margin: 0;
+  padding: 4px 16px 12px;
+  list-style: none;
+}
+
+.upcoming-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.upcoming-list li:last-child { border-bottom: 0; }
+
+.upcoming-date {
+  flex-shrink: 0;
+  width: 96px;
+  color: var(--muted);
+}
+
+.upcoming-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deeper-list li {
+  padding: 8px 0;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.deeper-list li:last-child { border-bottom: 0; }
+
+.deeper-list a {
+  font-weight: 600;
+  color: var(--navy);
+}
+
+/* ---- Statements and receipts on the timeline ---- */
+.doc-month {
+  padding: 10px 0 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  color: #5b6672;
+}
+
+.doc-node {
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.timeline-dot.is-consolidated { border-color: #1baf7a; }
+.timeline-dot.is-unconsolidated { border-color: #eb6834; border-style: dashed; }
+
+.doc-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.doc-card.doc-statement {
+  border-left: 4px solid #2a78d6;
+}
+
+.doc-card.is-unconsolidated {
+  border-style: dashed;
+  border-left: 4px dashed #eb6834;
+  background: #fffaf5;
+}
+
+.doc-card.doc-receipt.is-child {
+  border-left: 4px solid #1baf7a;
+}
+
+.doc-card-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.doc-title {
+  overflow: hidden;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.doc-title a { color: var(--navy); text-decoration: none; }
+.doc-title a:hover { text-decoration: underline; }
+
+.doc-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.doc-amount {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.doc-in-out {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.doc-in-out .is-pos { color: var(--pos); }
+.doc-in-out .is-neg { color: var(--neg); }
+
+.doc-badge {
+  flex-shrink: 0;
+  padding: 1px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border-radius: var(--radius);
+  border: 1px solid;
+}
+
+.doc-badge.is-consolidated { color: #14532d; background: #e7f6ee; border-color: #a9dcc2; }
+.doc-badge.is-unconsolidated { color: #8a3b00; background: #fdeede; border-color: #f2c79b; border-style: dashed; }
+.doc-badge.is-cash { color: #4a3aa7; background: #eeebfa; border-color: #cdc6ee; }
+
+/* The receipts consolidated into a statement, joined to it by a line */
+.doc-children {
+  margin: 0 0 0 26px;
+  padding: 8px 0 0 22px;
+  list-style: none;
+  border-left: 2px solid #1baf7a;
+}
+
+.doc-children > li {
+  position: relative;
+  padding-bottom: 6px;
+}
+
+.doc-children > li::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -22px;
+  width: 22px;
+  height: 2px;
+  background: #1baf7a;
+}
+
+.timeline-amount.is-pos { color: var(--pos); }
+
+/* ---- Settings ---- */
+.settings-panel {
+  max-width: 720px;
+}
+
+.settings-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 12px;
+  padding: 16px;
+}
+
+.settings-saved {
+  margin: 0;
+  padding: 0 16px 8px;
+  font-size: 0.85rem;
+  color: #14532d;
+}
+
+.settings-note {
+  padding: 4px 16px 16px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.settings-note p {
+  margin: 0 0 10px;
+}

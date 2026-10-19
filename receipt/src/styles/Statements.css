@@ -1,0 +1,209 @@
+/* Statements list and statement detail pages */
+
+/* ===== Statements list ===== */
+
+.statements-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-bottom: 12px;
+}
+
+.statements-search {
+  width: 300px;
+  max-width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.statements-search:focus {
+  outline: none;
+  border-color: var(--navy);
+  box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.15);
+}
+
+.statements-count {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.statements-row {
+  cursor: pointer;
+}
+
+.statements-row:focus-visible {
+  outline: 2px solid #B08D57;
+  outline-offset: -2px;
+}
+
+.first-upload-desc a {
+  color: #B08D57;
+  font-weight: 600;
+}
+
+/* ===== Statement detail =====
+   Scoped to .statement-detail-page. Like the Review page, the page is a full-height
+   column offset by the fixed navbar, and only the table scrolls. */
+.container.statement-detail-page {
+  align-items: stretch;
+  justify-content: flex-start;
+  padding-left: 15%; /* navbar width */
+}
+
+.statement-detail-page .statement-detail {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  box-sizing: border-box;
+  text-align: left;
+  position: relative;
+  z-index: 1;
+}
+
+.statement-detail-page .upload-detail-back {
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.statement-detail-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
+  margin-bottom: 16px;
+}
+
+.statement-detail-header h1 {
+  margin: 0;
+  min-width: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #2c3e50;
+  overflow-wrap: anywhere;
+}
+
+.statement-detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 32px;
+  flex-shrink: 0;
+  margin: 0 0 16px 0;
+}
+
+.statement-detail-meta dt {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #2c3e50a1;
+}
+
+.statement-detail-meta dd {
+  margin: 2px 0 0 0;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.statement-detail-empty {
+  color: #2c3e50ab;
+  font-size: 0.9rem;
+}
+
+.statement-table-scroll {
+  flex: 0 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+/* the box has the border, so the table inside does not need its own */
+.statement-table-scroll .file-table {
+  border: 0;
+}
+
+.statement-table-scroll .file-table th,
+.statement-table-scroll .file-table td {
+  font-size: 0.8125rem;
+}
+
+.statement-table-scroll .file-table td {
+  font-size: 0.85rem;
+}
+
+/* Outranks the table's generic td colour, which would otherwise win */
+.statement-table-scroll .file-table td.amount-negative {
+  color: var(--neg);
+}
+
+/* Long names and merchants are cut short (the name has the whole of it in its
+   tooltip); the alias's real name is kept beneath it */
+.statement-table-scroll .statement-name-col {
+  min-width: 180px;
+  max-width: 280px;
+}
+
+.statement-table-scroll .statement-merchant-col {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statement-amount-col {
+  text-align: right !important;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.statement-status {
+  display: inline-block;
+  padding: 1px 8px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #a15c07;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius);
+}
+
+.statement-status-reconciled {
+  color: var(--pos);
+  background: rgba(28, 124, 77, 0.1);
+  border-color: rgba(28, 124, 77, 0.3);
+}
+
+/* Keep the page clear of the navbar as it narrows (see Navbar.css) */
+@media (max-width: 768px) {
+  .container.statement-detail-page {
+    padding-left: 100px;
+  }
+
+  .statement-detail-page .statement-detail {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container.statement-detail-page {
+    padding-left: 80px;
+  }
+
+  .statement-detail-page .statement-detail {
+    padding: 12px;
+  }
+}

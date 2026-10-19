@@ -1,0 +1,8 @@
+Date,Description,Amount
+12/08/2026,Test,1
+12-08-2026,Test,1
+2026/08/12,Test,1
+2026-08-12,Test,1
+12/08/26,Test,1
+12-08-26,Test,1
+12 Aug 2026,Test,1

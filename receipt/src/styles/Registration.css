@@ -1,0 +1,331 @@
+
+/* Login Container */
+.login-container {
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  max-height: 100vh;
+  width: 100%;
+  padding: clamp(1rem, 4vh, 2.5rem) clamp(1.25rem, 3vw, 2.5rem);
+  background: rgba(37, 54, 67, 0.296);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(184, 141, 87, 0.15);
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(184, 141, 87, 0.08);
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  animation: slideUp 0.4s ease-out;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Login Header */
+.login-header {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(0.5rem, 2vh, 1.5rem);
+}
+
+.login-header img {
+  width: clamp(110px, 20vh, 180px);
+  height: auto;
+  margin-bottom: clamp(0.4rem, 1vh, 0.75rem);
+  filter: brightness(0) invert(1);
+  transition: var(--transition);
+}
+
+.login-header img:hover {
+  transform: scale(1.05);
+}
+
+.login-header h6 {
+  margin: 0;
+  color: rgba(251, 246, 238, 0.7);
+  font-size: clamp(0.8rem, 1.8vh, 0.95rem);
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+/* Login Form */
+.login-form {
+  width: 100%;
+  padding: clamp(0.5rem, 2vh, 1.5rem) 0 0 0;
+}
+
+.login-form h1 {
+  color: #FBF6EE;
+  text-align: center;
+  margin-bottom: 0.25rem;
+  font-size: clamp(1.4rem, 4vh, 2rem);
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.login-form hr {
+  background: linear-gradient(90deg, transparent, #B08D57, transparent);
+  border: none;
+  height: 2px;
+  width: 60px;
+  margin: clamp(0.25rem, 1vh, 0.5rem) auto clamp(0.75rem, 2vh, 1.5rem);
+  border-radius: 2px;
+}
+
+/* Input Fields */
+.inputs {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.input {
+  margin-bottom: clamp(0.5rem, 1.75vh, 1.25rem);
+}
+
+.input label {
+  display: block;
+  margin-bottom: clamp(0.2rem, 0.75vh, 0.5rem);
+  font-weight: 500;
+  color: rgba(251, 246, 238, 0.8);
+  font-size: clamp(0.8rem, 1.7vh, 0.9rem);
+  letter-spacing: 0.5px;
+}
+
+.input input {
+  width: 100%;
+  padding: clamp(8px, 1.6vh, 12px) 16px;
+  border: 1.5px solid rgba(184, 141, 87, 0.15);
+  font-size: clamp(0.9rem, 1.9vh, 1rem);
+  transition: var(--transition);
+  color: #FBF6EE;
+  background: rgba(16, 20, 24, 0.4);
+  box-sizing: border-box;
+}
+
+.input input:focus {
+  outline: none;
+  border-color: #B08D57;
+  background: rgba(16, 20, 24, 0.6);
+  box-shadow: 0 0 0 4px rgba(184, 141, 87, 0.15);
+}
+
+.input input::placeholder {
+  color: rgba(251, 246, 238, 0.35);
+}
+
+.input input:hover {
+  border-color: rgba(184, 141, 87, 0.3);
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: clamp(10px, 1.8vh, 14px);
+  color: #FBF6EE;
+  background: #B08D57;
+  border: none;
+  font-size: clamp(0.9rem, 1.9vh, 1rem);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: clamp(0.2rem, 0.75vh, 0.5rem);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: #B08D57;
+  transition: 0.5s;
+}
+
+.submit-btn:hover::before {
+  left: 100%;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(184, 141, 87, 0.3);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+/* Sign Up Section */
+.no-account-signup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: clamp(0.35rem, 1vh, 1rem);
+  padding-top: clamp(0.35rem, 1vh, 1rem);
+  border-top: 1px solid rgba(184, 141, 87, 0.1);
+}
+
+.no-account-signup h4 {
+  margin: 0;
+  color: rgba(251, 246, 238, 0.5);
+  font-weight: 400;
+  font-size: clamp(0.8rem, 1.7vh, 0.95rem);
+}
+
+.sign-up-suggestion {
+  margin: 0.25rem 0 0 0 !important;
+  color: #DCC9A6 !important;
+  font-weight: 600 !important;
+  cursor: pointer;
+  transition: var(--transition);
+  font-size: clamp(0.85rem, 1.8vh, 1rem) !important;
+}
+
+.sign-up-suggestion:hover {
+  color: #B08D57 !important;
+  transform: translateX(2px);
+}
+
+/*=========== Error Message ==========*/
+.failed-login {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  animation: slideDown 0.4s ease-out;
+}
+
+.failed-login p {
+  background: rgba(214, 82, 80, 0.198);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(229, 60, 60, 0.291);
+  color: #f44e3e;
+  padding: 12px 24px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+  .container {
+    padding-left: 0;
+  }
+  
+  .login-container {
+    padding: clamp(1rem, 4vh, 2rem) 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .container::before,
+  .container::after {
+    width: 250px;
+    height: 250px;
+  }
+}
+/* Sign up has five fields to the sign in's two, so its box is scaled down to fit the
+   page without scrolling: first and last name share a row, and the logo, spacing and
+   type shrink with the height of the window */
+.login-container.is-signup {
+  max-width: 440px;
+  padding: clamp(0.5rem, 2vh, 1.5rem) clamp(1.25rem, 3vw, 2rem);
+  overflow-y: hidden;
+}
+
+.is-signup .login-header {
+  margin-bottom: clamp(0.1rem, 0.5vh, 0.4rem);
+}
+
+.is-signup .login-header img {
+  width: clamp(144px, 22vh, 240px);
+  margin-bottom: 0.2rem;
+}
+
+.is-signup .login-header h6 {
+  display: none;
+}
+
+.is-signup .login-form {
+  padding-top: 0;
+}
+
+.is-signup .login-form h1 {
+  margin-bottom: 0;
+  font-size: clamp(1.1rem, 3vh, 1.6rem);
+}
+
+.is-signup .login-form hr {
+  margin: clamp(0.15rem, 0.6vh, 0.4rem) auto clamp(0.4rem, 1.2vh, 0.9rem);
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 0.75rem;
+}
+
+.is-signup .input {
+  margin-bottom: clamp(0.3rem, 1.1vh, 0.8rem);
+}
+
+.is-signup .input label {
+  margin-bottom: 0.15rem;
+  font-size: clamp(0.68rem, 1.4vh, 0.8rem);
+}
+
+.is-signup .input input {
+  padding: clamp(5px, 1.1vh, 9px) 12px;
+  font-size: clamp(0.8rem, 1.6vh, 0.9rem);
+}
+
+.is-signup .submit-btn {
+  padding: clamp(7px, 1.3vh, 11px);
+  font-size: clamp(0.8rem, 1.6vh, 0.95rem);
+}
+
+.is-signup .no-account-signup {
+  margin-top: clamp(0.25rem, 0.7vh, 0.6rem);
+  padding-top: clamp(0.25rem, 0.7vh, 0.6rem);
+}
+
+.is-signup .no-account-signup h4 {
+  font-size: clamp(0.7rem, 1.4vh, 0.85rem);
+}
+
+.is-signup .sign-up-suggestion {
+  margin-top: 0.1rem !important;
+  font-size: clamp(0.75rem, 1.5vh, 0.9rem) !important;
+}

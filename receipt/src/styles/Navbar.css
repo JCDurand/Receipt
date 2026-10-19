@@ -1,0 +1,350 @@
+/* Navbar.css - Financial Theme */
+.container_nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  height: 100vh;
+  background: #101418;
+  border-right: 1px solid rgba(184, 141, 87, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  flex-shrink: 0;
+  width: 15%;
+  z-index: 1000;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.navbar-header {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  /* takes the room the user section leaves, and no more: the links scroll in it, so the
+     user section (name and Log Out) stays at the foot however many pages are open */
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 16px;
+  width: 100%;
+}
+
+/* Subtle hover glow effect */
+/* Logo Section */
+.navbar-logos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.navbar-logos img {
+  height: 38px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+/* Navigation Links */
+.navbar-links {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  gap: 4px;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 4px 0;
+  width: 100%;
+  overflow-x: hidden;
+  /* the Dashboard's pages, when open, can be more than fit */
+  overflow-y: auto;
+}
+
+.navbar-links a {
+  color: rgba(251, 246, 238, 0.5);
+  text-decoration: none;
+  padding: 8px 14px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  position: relative;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.navbar-links a p {
+  margin: 0;
+  text-align: left;
+}
+
+.navbar-links a:hover {
+  color: rgba(251, 246, 238, 0.8);
+  background: rgba(184, 141, 87, 0.08);
+}
+.navbar-links a.active {
+  color: #FBF6EE;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Splits the links into two sections */
+.navbar-divider {
+  flex-shrink: 0;
+  height: 1px;
+  margin: 8px 14px;
+  background: linear-gradient(90deg, transparent, rgba(184, 141, 87, 0.45), transparent);
+}
+
+/* Active indicator dot */
+.navbar-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 2px;
+  background: var(--gold);
+  border-radius: 10px;
+}
+
+/* User Section */
+.navbar-user {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  flex-shrink: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(184, 141, 87, 0.08);
+  text-align: center;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+}
+
+.user-info span {
+  display: block;
+  max-width: 100%;
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #B08D57, #DCC9A6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #101418;
+  border: 2px solid rgba(184, 141, 87, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.user-avatar:hover {
+  transform: scale(1.05);
+  border-color: rgba(184, 141, 87, 0.5);
+  box-shadow: 0 0 20px rgba(184, 141, 87, 0.15);
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* The user's first and last name, above their username */
+.user-fullname {
+  color: #FBF6EE;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.username {
+  color: rgba(251, 246, 238, 0.6);
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Logout Button */
+.logout-btn {
+  background: rgba(184, 141, 87, 0.08);
+  color: rgba(251, 246, 238, 0.7);
+  border: 1px solid rgba(184, 141, 87, 0.15);
+  border-radius: var(--radius);
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  font-weight: 500;
+  font-size: 0.75rem;
+  letter-spacing: 0.3px;
+  width: 100%;
+}
+.logout-btn:hover {
+  background: rgba(184, 141, 87, 0.16);
+  color: #DCC9A6;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container_nav {
+    padding: 1rem 0.75rem;
+    width: 100px;
+  }
+
+  .navbar-logos img {
+    height: 30px;
+  }
+
+  .navbar-links {
+    gap: 2px;
+    padding: 2px 0;
+  }
+
+  .navbar-links a {
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    border-radius: 6px;
+  }
+
+  .navbar-links a.active::after {
+    width: 10px;
+    height: 1.5px;
+    bottom: 2px;
+  }
+
+  .navbar-divider {
+    margin: 4px 10px;
+  }
+
+  .user-fullname {
+    font-size: 0.75rem;
+  }
+
+  .username {
+    height: auto;
+  }
+
+  .logout-btn {
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+
+  .navbar-user {
+    gap: 8px;
+    padding-top: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container_nav {
+    padding: 0.75rem 0.5rem;
+    width: 80px;
+  }
+
+  .navbar-logos img {
+    height: 24px;
+  }
+
+  .navbar-links a {
+    padding: 4px 8px;
+    font-size: 0.6rem;
+  }
+  
+  .logout-btn {
+    font-size: 0.55rem;
+    padding: 3px 8px;
+  }
+  
+  .user-avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 0.6rem;
+  }
+}
+/* "Dashboard": a heading which opens and closes the pages under it */
+.navbar-group-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 8px 14px;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  text-align: left;
+  color: rgba(251, 246, 238, 0.5);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.navbar-group-toggle:hover {
+  color: rgba(251, 246, 238, 0.8);
+  background: rgba(184, 141, 87, 0.08);
+}
+
+/* a page under it is the one open, whether or not the list is */
+.navbar-group-toggle.has-active {
+  color: #FBF6EE;
+}
+
+.navbar-group-caret {
+  font-size: 0.7rem;
+}
+
+.navbar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 14px;
+  border-left: 1px solid rgba(184, 141, 87, 0.25);
+}
+
+.navbar-group a {
+  padding-left: 12px;
+}
+
+/* a page's name stays on one line inside an indented group */
+.navbar-group a p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Settings sits at the foot of the links, just above the user section. When the
+   open groups need more room than there is, it is simply the last of the links
+   and scrolls with them. */
+.navbar-links > .navbar-settings-link {
+  margin-top: auto;
+}

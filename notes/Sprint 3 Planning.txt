@@ -1,0 +1,44 @@
+1. Deployment
+2. Financial reporting dashboard
+3. Hierarchical tags
+4. QoL
+	Faster frontend loading
+	Dark mode
+	Running total of account balance
+	Bank statements showing overlap windows
+	Document preview
+	Handling bank statements from different banks
+5. Subscription tracking
+6. Tags page
+7. Database backup
+
+Stretch goals:
+	Cloudflare
+	Mobile-friendly app views
+	Anomaly detection
+	
+Main focus is polish.
+Focus on features with high returns for demos
+How can we make the final demo as cool as possible?
+Final demo as telling a story. Not a technical walkthrough
+Come up with narratives for demo in week before actual demo date
+We can have an online demo walkthrough a week before the actual demo
+
+
+
+Production deployment:
+Deploy the existing Docker stack to a VPS or cloud platform.
+Add HTTPS, domain configuration, environment-based secrets, backups, persistent media, and database migrations.
+Keep CloudBeaver private or remove it from the public deployment. It should not be exposed to the internet.
+Add a health-check endpoint and basic deployment documentation.
+
+Gunicorn integration:
+Replace python manage.py runserver in entrypoint.sh with Gunicorn.
+Keep Nginx as the public reverse proxy. Gunicorn should serve Django internally; it should not replace Nginx.
+Add Gunicorn to requirements.txt, configure worker/thread counts, and ensure graceful shutdown.
+
+Cloudflare and Domain:
+Provision Oracle Cloud server using Oracle Cloud Free Tier.
+Buy domain name for hosting purposes. Cost will be covered by myself.
+Configure DNS records for purchased domain.
+Optional: Load deployed project onto CloudFlare's CDN to speed up load times for international users. Confirm whether CloudFlare has a free tier.

@@ -1,0 +1,115 @@
+/* Tabs.css - the row of tabs at the top of a dashboard page's content */
+.tabs-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 16px;
+  padding: 0 8px 0 4px;
+  border-bottom: 1px solid var(--line-strong);
+  background: var(--surface);
+}
+
+.tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.tabs-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 14px 10px;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+
+.tabs-tab:hover {
+  color: var(--navy);
+}
+
+.tabs-tab:focus-visible {
+  outline: 2px solid #2a78d6;
+  outline-offset: -2px;
+}
+
+.tabs-tab.is-active {
+  font-weight: 700;
+  color: var(--navy);
+  border-bottom-color: #b08d57;
+}
+
+/* a count on a tab: how many things need attention in it */
+.tabs-badge {
+  min-width: 18px;
+  padding: 0 5px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: center;
+  color: #fff;
+  background: #d03b3b;
+  border-radius: 9px;
+}
+
+.tabs-actions {
+  display: flex;
+  align-items: center;
+  padding-bottom: 6px;
+}
+
+.tabs-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  padding: 5px 10px;
+  font: inherit;
+  font-size: 0.78rem;
+  color: var(--navy);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.tabs-filter.is-open {
+  background: var(--head);
+}
+
+.tabs-filter-label {
+  font-weight: 600;
+}
+
+.tabs-filter-summary {
+  overflow: hidden;
+  max-width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.tab-panel {
+  min-width: 0;
+}
+
+/* what a tab holds draws no box of its own inside the page's panel */
+.tab-panel > .dashboard-panel {
+  border: 0;
+  border-radius: 0;
+}
+
+.tab-panel > .dashboard-panel > .dashboard-panel-title {
+  border-bottom: 1px solid var(--line);
+}
+
+.tab-panel > .chart-card:last-child {
+  border-bottom: 0;
+}

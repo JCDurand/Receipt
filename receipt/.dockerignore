@@ -1,0 +1,4 @@
+# Installed and built inside the image, not copied from the host
+node_modules/
+dist/
+npm-debug.log

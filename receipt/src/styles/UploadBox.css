@@ -1,0 +1,467 @@
+/* ===== Upload box row (Statements / Receipts / Manual entry) ===== */
+.upload-box-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.upload-box {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 110px;
+  padding: 18px 14px;
+  text-align: center;
+  border: 1px dashed #a9b4c0;
+  border-radius: var(--radius);
+  background: var(--surface);
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.upload-box:hover {
+  border-color: var(--navy);
+}
+
+.upload-box:focus-visible {
+  outline: none;
+  border-color: #B08D57;
+  box-shadow: 0 0 0 3px rgba(184, 141, 87, 0.2);
+}
+
+.upload-box-active {
+  border-color: #B08D57 !important;
+  background: rgba(184, 141, 87, 0.08) !important;
+  box-shadow: 0 0 0 4px rgba(184, 141, 87, 0.08);
+}
+
+.upload-box-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.upload-box-hint {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ===== Upload confirmation modal name field ===== */
+.upload-modal-name-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 4px 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #FBF6EE;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(184, 141, 87, 0.2);
+  border-radius: 4px;
+}
+
+.upload-modal-name-input:focus {
+  outline: none;
+  border-color: #B08D57;
+  box-shadow: 0 0 0 3px rgba(184, 141, 87, 0.15);
+}
+
+/* ===== Upload confirmation modal fields ===== */
+.upload-modal-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.upload-modal-field:last-child {
+  margin-bottom: 0;
+}
+
+.upload-modal-field-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(251, 246, 238, 0.5);
+}
+
+.upload-modal-field select {
+  padding: 8px 12px;
+  border: 1px solid rgba(184, 141, 87, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  font-size: 0.85rem;
+}
+
+.upload-modal-field select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.upload-modal-checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: rgba(251, 246, 238, 0.9);
+  cursor: pointer;
+}
+
+.upload-modal-checkbox input {
+  margin-top: 3px;
+  accent-color: #B08D57;
+  cursor: pointer;
+}
+
+.upload-modal-hint {
+  display: block;
+  font-size: 0.72rem;
+  color: rgba(251, 246, 238, 0.5);
+}
+
+.upload-modal-line-items-placeholder {
+  padding: 20px 16px;
+  border: 1px dashed rgba(184, 141, 87, 0.2);
+  color: rgba(251, 246, 238, 0.5);
+  font-size: 0.8rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Line items read from the chosen file */
+.upload-modal-items-scroll {
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid rgba(184, 141, 87, 0.2);
+}
+
+.upload-modal-items-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+  color: rgba(251, 246, 238, 0.85);
+}
+
+.upload-modal-items-table th {
+  position: sticky;
+  top: 0;
+  padding: 6px 10px;
+  background: #22303f;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(251, 246, 238, 0.5);
+}
+
+.upload-modal-items-table td {
+  padding: 6px 10px;
+  border-top: 1px solid rgba(184, 141, 87, 0.1);
+  text-align: left;
+}
+
+.upload-modal-items-table th:not(:first-child),
+.upload-modal-items-table td:not(:first-child) {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.upload-modal-items-total {
+  align-self: flex-end;
+  font-size: 0.75rem;
+  color: rgba(251, 246, 238, 0.7);
+}
+
+.upload-modal-issue-count {
+  margin-left: 8px;
+  color: #fbbf24;
+}
+
+.upload-modal-issues {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.upload-modal-issues li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 10px;
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  color: #fbbf24;
+  font-size: 0.78rem;
+  text-align: left;
+}
+
+.upload-modal-issue-flag {
+  flex-shrink: 0;
+  padding: 0 6px;
+  background: #fbbf24;
+  color: #2c3e50;
+  font-size: 0.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.upload-modal-error {
+  color: #f87171;
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.upload-modal-cancel {
+  padding: 6px 16px;
+  background: rgba(16, 20, 24, 0.3);
+  color: rgba(251, 246, 238, 0.7);
+  border: 1px solid rgba(184, 141, 87, 0.08);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-modal-cancel:hover:not(:disabled) {
+  background: rgba(16, 20, 24, 0.5);
+  color: #FBF6EE;
+}
+
+.upload-modal-cancel:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== Manual entry line items form ===== */
+.manual-entry-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.manual-entry-item-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.manual-entry-item-row input[type="text"] {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid rgba(184, 141, 87, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  font-size: 0.85rem;
+}
+
+.manual-entry-item-row input[type="number"] {
+  width: 110px;
+  padding: 8px 12px;
+  border: 1px solid rgba(184, 141, 87, 0.2);
+  background: rgba(255, 255, 255, 0.9);
+  color: #2c3e50;
+  font-size: 0.85rem;
+}
+
+.manual-entry-remove-item {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.manual-entry-remove-item:hover {
+  background: rgba(248, 113, 113, 0.2);
+}
+
+.manual-entry-add-item {
+  align-self: flex-start;
+  padding: 6px 14px;
+  background: rgba(184, 141, 87, 0.1);
+  color: #DCC9A6;
+  border: 1px dashed rgba(184, 141, 87, 0.3);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.manual-entry-add-item:hover {
+  background: rgba(184, 141, 87, 0.18);
+}
+
+/* ===== Document type badges ===== */
+.doc-type-statement {
+  color: #60a5fa;
+  background: rgba(96, 165, 250, 0.1);
+  border-color: rgba(96, 165, 250, 0.2);
+}
+
+.doc-type-scan,
+.doc-type-receipt {
+  color: #fea809;
+  background: rgba(194, 120, 30, 0.1);
+  border-color: rgba(232, 142, 31, 0.2);
+}
+
+/* Cash entries aren't statements or receipts, so they get their own banner
+   rather than borrowing the Statement/Receipt colours. */
+.doc-type-cash {
+  color: #34d399;
+  background: rgba(52, 211, 153, 0.1);
+  border-color: rgba(52, 211, 153, 0.2);
+}
+
+/* Kept for manual entries saved before Type-based badges existed. */
+.doc-type-manual-entry {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.1);
+  border-color: rgba(167, 139, 250, 0.2);
+}
+
+/* On the light pages (the uploads table, a document's page) the badges are darker
+   so that they can be read against white */
+:is(.file-table, .upload-detail-card) .file-type-badge {
+  padding: 1px 8px;
+  font-size: 0.7rem;
+  border-radius: var(--radius);
+}
+
+:is(.file-table, .upload-detail-card) .doc-type-statement {
+  color: #1d4ed8;
+  background: rgba(59, 130, 246, 0.1);
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+:is(.file-table, .upload-detail-card) :is(.doc-type-scan, .doc-type-receipt) {
+  color: #a15c07;
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+:is(.file-table, .upload-detail-card) .doc-type-cash {
+  color: var(--pos);
+  background: rgba(28, 124, 77, 0.1);
+  border-color: rgba(28, 124, 77, 0.3);
+}
+
+:is(.file-table, .upload-detail-card) .doc-type-manual-entry {
+  color: #6d28d9;
+  background: rgba(109, 40, 217, 0.08);
+  border-color: rgba(109, 40, 217, 0.25);
+}
+
+/* ===== Uploads table: filter / sort toolbar and row actions ===== */
+.uploads-toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.uploads-filter-chips,
+.uploads-toolbar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 14px;
+}
+
+.uploads-chip {
+  padding: 5px 12px;
+  background: var(--surface);
+  color: var(--navy);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.uploads-chip:hover {
+  border-color: var(--navy);
+}
+
+.uploads-chip.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+.uploads-control {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.uploads-control select,
+.uploads-control input[type="date"] {
+  padding: 6px 8px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-family: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.uploads-clear-filters {
+  padding: 6px 12px;
+  background: transparent;
+  color: var(--navy);
+  border: none;
+  text-decoration: underline;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.uploads-delete-btn {
+  padding: 4px 10px;
+  background: var(--surface);
+  color: var(--neg);
+  border: 1px solid #e3b5b1;
+  border-radius: var(--radius);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.uploads-delete-btn:hover:not(:disabled) {
+  background: #fbeceb;
+}
+
+.uploads-delete-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .upload-box-row {
+    flex-direction: column;
+  }
+}

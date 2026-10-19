@@ -1,0 +1,7 @@
+Merchant,Date,Item,Quantity,Unit Price,Amount
+Test Merchant,12/08/2026,Test Item,1,100,100
+Test Merchant,12-08-2026,Test Item,1,100,100
+Test Merchant,2026/08/12,Test Item,1,100,100
+Test Merchant,2026-08-12,Test Item,1,100,100
+Test Merchant,12/08/26,Test Item,1,100,100
+Test Merchant,12-08-26,Test Item,1,100,100

@@ -1,0 +1,622 @@
+/* Analytics.css - charts, statistics, balances and the expense timeline */
+
+.analytics-exports {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-right: 16px;
+}
+
+.analytics-exports .spending-pill:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.analytics-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---- Statistics ---- */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  border-bottom: 1px solid var(--line);
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  padding: 14px 16px;
+  border-right: 1px solid #eef0f3;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5b6672;
+}
+
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--navy);
+}
+
+.stat-value.is-pos { color: var(--pos); }
+.stat-value.is-neg { color: var(--neg); }
+
+.stat-detail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ---- Chart cards ---- */
+.analytics-charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+}
+
+.chart-card {
+  min-width: 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.analytics-charts .chart-card:nth-child(odd) {
+  border-right: 1px solid var(--line);
+}
+
+.chart-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 16px;
+}
+
+.chart-card-head h4 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--navy);
+}
+
+.chart-subcontrols {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 8px;
+}
+
+.chart-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.chart-axes text {
+  font-size: 10px;
+  fill: #5b6672;
+}
+
+.chart-grid {
+  stroke: #e4e7ec;
+  stroke-width: 1;
+}
+
+.chart-crosshair {
+  stroke: #9aa5b1;
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+.chart-tip rect {
+  fill: #fff;
+  stroke: var(--line-strong);
+}
+
+.chart-tip text {
+  font-size: 10px;
+  fill: #5b6672;
+}
+
+.chart-tip .chart-tip-value {
+  font-size: 12px;
+  font-weight: 600;
+  fill: var(--ink);
+}
+
+/* Pie and donut, with the legend beside it (below, when narrow) */
+.chart-pie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 8px 16px 16px;
+}
+
+.chart-pie-svg {
+  width: 200px;
+  height: 200px;
+  flex-shrink: 0;
+}
+
+.chart-center-value {
+  font-size: 13px;
+  font-weight: 700;
+  fill: var(--navy);
+}
+
+.chart-center-label {
+  font-size: 9px;
+  fill: #5b6672;
+}
+
+.chart-legend {
+  flex: 1;
+  min-width: 180px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chart-legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 4px;
+  font-size: 0.8rem;
+}
+
+.chart-legend li.is-hover {
+  background: var(--head);
+}
+
+.chart-swatch {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.chart-legend-name {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.chart-legend-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+/* Horizontal bars */
+.chart-hbars {
+  margin: 0;
+  padding: 4px 16px 14px;
+  list-style: none;
+}
+
+.chart-hbars li {
+  display: grid;
+  grid-template-columns: minmax(70px, 1fr) 2fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 0;
+  font-size: 0.8rem;
+}
+
+.chart-hbar-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chart-hbar-track {
+  height: 10px;
+  background: var(--head);
+}
+
+.chart-hbar-track span {
+  display: block;
+  height: 100%;
+}
+
+.chart-hbar-value {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.analytics-select {
+  padding: 5px 8px;
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+/* ---- Balances ---- */
+.balance-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 24px;
+  margin: 0;
+  padding: 0 16px 10px;
+  list-style: none;
+}
+
+.balance-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.balance-name { color: var(--muted); }
+.balance-total { margin-left: auto; padding-left: 16px; border-left: 1px solid var(--line-strong); }
+.balance-list .is-neg { color: var(--neg); }
+
+/* ---- Expense timeline ---- */
+.timeline {
+  padding: 0 16px 16px;
+}
+
+.timeline-spine {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 22px;
+  list-style: none;
+}
+
+.timeline-spine::before {
+  content: "";
+  position: absolute;
+  top: 6px;
+  bottom: 0;
+  left: 6px;
+  width: 2px;
+  background: var(--line-strong);
+}
+
+.timeline-node {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.timeline-date {
+  padding: 8px 0 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5b6672;
+}
+
+.timeline-dot {
+  position: absolute;
+  top: 14px;
+  left: -22px;
+  box-sizing: border-box;
+  width: 14px;
+  height: 14px;
+  background: var(--surface);
+  border: 3px solid #2a78d6;
+  border-radius: 50%;
+}
+
+.timeline-node .timeline-date + .timeline-dot { top: 38px; }
+.timeline-dot.has-branches { background: #2a78d6; }
+
+.timeline-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius);
+}
+
+.timeline-card-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.timeline-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.timeline-title a { color: inherit; text-decoration: none; }
+.timeline-title a:hover { text-decoration: underline; }
+
+.timeline-meta {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.timeline-amount {
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--neg);
+}
+
+.timeline-toggle {
+  padding: 0;
+  font-size: 0.75rem;
+  color: var(--navy);
+  text-decoration: underline;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Branches come off the spine's node to the right, each on its own elbow */
+.timeline-branches {
+  position: relative;
+  margin: 0 0 0 28px;
+  padding: 6px 0 0 20px;
+  list-style: none;
+  border-left: 2px solid #2a78d6;
+}
+
+.timeline-branch {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  background: var(--head);
+  margin-bottom: 4px;
+}
+
+.timeline-branch::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -20px;
+  width: 20px;
+  border-top: 2px solid #2a78d6;
+}
+
+.timeline-branch-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline-branch-amount {
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.timeline-more {
+  margin-top: 8px;
+}
+
+@media (max-width: 700px) {
+  .analytics-charts .chart-card:first-child { border-right: none; }
+  .balance-total { margin-left: 0; padding-left: 0; border-left: none; }
+}
+
+/* ---- Change on the period before ---- */
+.stat-delta {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.stat-delta.is-good { color: var(--pos); }
+.stat-delta.is-bad { color: var(--neg); }
+
+.chart-card-head .is-pos { color: var(--pos); }
+.chart-card-head .is-neg { color: var(--neg); }
+
+/* ---- Why a chart is empty ---- */
+.chart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 24px 16px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.chart-empty p {
+  margin: 0;
+}
+
+/* A legend above a chart, in one row */
+.chart-legend.chart-legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  padding: 0 16px 4px;
+}
+
+.chart-legend-row .chart-legend-name {
+  flex: none;
+}
+
+/* ---- Budgets ---- */
+.budget-list {
+  margin: 0;
+  padding: 0 16px 8px;
+  list-style: none;
+}
+
+.budget-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.budget-list li:last-child {
+  border-bottom: none;
+}
+
+.budget-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.budget-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.budget-status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.budget-status span {
+  display: inline-block;
+  width: 1.2em;
+  text-align: center;
+  color: #fff;
+}
+
+.budget-status.is-good span { background: #0ca30c; }
+.budget-status.is-warning span { background: #fab219; color: #0b0b0b; }
+.budget-status.is-serious span { background: #ec835a; color: #0b0b0b; }
+.budget-status.is-critical span { background: #d03b3b; }
+
+.budget-figures {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+
+.budget-detail {
+  margin: 6px 0 0;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.budget-actions {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.budget-input {
+  width: 9em;
+  padding: 4px 6px;
+  font-size: 0.8rem;
+  border: 1px solid var(--line-strong);
+}
+
+.budget-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 16px 4px;
+}
+
+.budget-error {
+  padding: 0 16px;
+}
+
+.chart-progress {
+  position: relative;
+  display: block;
+  height: 10px;
+  background: var(--head);
+}
+
+.chart-progress > span {
+  display: block;
+  height: 100%;
+}
+
+/* where the month is heading */
+.chart-progress-marker {
+  position: absolute;
+  top: -3px;
+  bottom: -3px;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--ink);
+}
+
+.link-button {
+  padding: 0;
+  font: inherit;
+  color: var(--navy);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.link-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Recurring payments ---- */
+.recurring-scroll {
+  overflow-x: auto;
+  padding: 0 16px 8px;
+}
+
+.recurring-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8rem;
+}
+
+.recurring-table th,
+.recurring-table td {
+  padding: 6px 8px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid #eef0f3;
+}
+
+.recurring-table th {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: #5b6672;
+}
+
+.recurring-table .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.recurring-table tr.is-late td {
+  color: var(--muted);
+}

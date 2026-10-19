@@ -1,0 +1,3 @@
+Merchant,Date,Item,Quantity,Unit Price,Amount
+Test Merchant,2026-08-12,Valid Item,2,100,200
+Test Merchant,2026-08-12,Invalid Item,abc,100,100
